@@ -14,5 +14,30 @@
     3.360010000000057,
     7.811400000000049,
     12.287720000000082
-  ]
+  ],
+  "qu2022_native_OH_forcing_Tg": 4.66323024054982,
+  "qu2022_ensemble_emission_fraction_mean": 0.8208096374763041,
+  "qu2022_ensemble_emission_fraction_population_sd": 0.16685020135452472,
+  "ciais_2020_digitization_minus_reported_emissions_Tg": -0.06451612903225623,
+  "ciais_emission_forcing_Tg": [
+    0.0,
+    21.935483870967744,
+    24.946236559139784,
+    23.440860215053764
+  ],
+  "ciais_signed_OH_sink_anomalies_Tg": [
+    [
+      0.0,
+      3.393939393939391,
+      16.12121212121212,
+      3.393939393939391
+    ],
+    [
+      0.0,
+      4.363636363636363,
+      8.484848484848486,
+      -0.7272727272727266
+    ]
+  ],
+  "laughner_2020_scenario_3percent_11p1yr_Tg": 13.974200810810808
 }

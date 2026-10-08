@@ -1,36 +1,54 @@
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
-\usepackage{hyperref}
+\usepackage{amsmath,hyperref}
 \begin{document}
-\begin{center}\large Qu et al. (2022): full-text acquisition pending\end{center}
-\noindent\textbf{[Unread].} This is an acquisition record, not a scientific summary.
-The full paper and supplement have been requested from the user.
+\begin{center}\large Emission--OH partitioning in Qu et al. (2022)\end{center}
+\noindent\textbf{Reference.} Qu et al., \emph{Environmental Research Letters}
+17, 094003, \href{https://doi.org/10.1088/1748-9326/ac8754}{doi:10.1088/1748-9326/ac8754}.
+The full article and three-page supplement (Table~S1, Figs.~S1--S2) were read.
+The inversion covers 2019--2020 only; 2021--2022 remain missing.
 
-\paragraph{Reference.} Qu et al., ``Attribution of the 2020 surge in atmospheric
-methane by inverse analysis of GOSAT observations,'' \emph{Environmental Research
-Letters} 17, 094003,
-\href{https://doi.org/10.1088/1748-9326/ac8754}{doi:10.1088/1748-9326/ac8754}.
-The original bibliography is retained unchanged in the repository.
+\paragraph{Method.} Independent annual analytical Bayesian inversions assimilate
+University of Leicester GOSAT v9 land and ocean-glint retrievals using
+GEOS--Chem 12.5.0, MERRA-2 meteorology, and a $2^\circ\times2.5^\circ$ grid.
+The 4189-element state comprises 4020 annual non-wetland fluxes, 168 monthly
+wetland fluxes across 14 regions, and one annual global OH loss-frequency
+factor. Identical priors and prior covariances are used in both years:
+GFEI v2 fossil emissions, EDGAR v4.3.2 other anthropogenic emissions,
+and nine WetCHARTs v1.3.2 members for 2019 wetlands/lakes. Initial methane
+is independently scaled by 0.97 in 2019 and 1.01 in 2020 to match GOSAT.
+The base uncertainties are 50\% for emissions and 10\% for OH, with
+regularization $\gamma=0.5$. Eight one-at-a-time sensitivity runs vary
+these errors and regularization.
 
-\paragraph{Acquisition attempts.} The IOP article and PDF endpoints returned
-access challenges. The IOP content host returned HTTP 403 for the article and
-supplementary-data URLs. OpenAlex and author-publication pages were checked
-for an accessible copy. A NASA Earth Science Project Office publication entry
-was retrieved, but its current page supplies a DOI link without an attached
-PDF. Download attempts are recorded in \texttt{data/downloads.jsonl}.
+\paragraph{Native budget.} Rounded Table~1 gives burden 5197/5238 Tg,
+emissions 572/603, OH removal 469/468, and other removal 75/76
+Tg CH$_4$ yr$^{-1}$ in 2019/2020. Thus
+\begin{equation}
+F_{{\rm OH},2020}=469-468(5197/5238)=4.66\ {\rm Tg\ CH}_4\ {\rm yr}^{-1}.
+\end{equation}
+This agrees to reporting precision with the stated OH forcing of 5 and
+emission forcing of 31, totaling 36 Tg CH$_4$ yr$^{-1}$ (86\% emissions).
+Ensemble means are $30\pm5.5$ for emissions and $82\pm18$\% for their
+forcing share. Table~S1 spans emission changes of 19--36 and total forcings
+of 35--39: the split is sensitive even when total forcing is comparatively
+stable. The base source--sink posterior error correlation is 0.97.
 
-\paragraph{Required material.} The complete article and all supplementary files
-are required before documenting its inversion design, posterior fluxes, OH
-definition, uncertainty ensemble, or regional attribution. A summary of this
-study in a later paper is not a substitute for reading its primary methods.
-No values attributed to this article are inserted into the numerical comparison.
+\paragraph{Regional findings.} Africa contributes 15 Tg CH$_4$ yr$^{-1}$,
+48\% of the base emission increase. Canada/Alaska increases by 4.8,
+or 24\% of its own 2019 emissions (about 15\% of the global increase).
+China, CONUS, and South America decrease. Rainfall/inundation and boreal
+wetland temperature sensitivity are proposed explanations. The authors
+explicitly cannot robustly separate anthropogenic and wetland changes at
+grid-cell scale; the wetland interpretation uses ancillary evidence.
 
-\paragraph{Planned use once supplied.} Extract native 2019 and 2020 emissions,
-OH loss frequencies or matched burden and removal fluxes, soil and other loss
-terms, and the averaging conventions used to report growth. Rebase all
-available quantities to 2019 and apply the documented He et al. equation.
-Preserve differences between annual priors, initialization, and observation
-sampling when comparing it with Qu et al. (2024). Do not treat the latter as
-an interchangeable replacement for this unavailable study, and do not infer
-missing 2021--2022 values by extrapolation.
+\paragraph{Comparison limits.} The tabulated native growth anomaly is 31
+Tg CH$_4$ yr$^{-1}$, compared with 14.24 from our NOAA snapshot. Annual
+initialization and different sampling/diagnostics must therefore be retained;
+replacing one baseline with the other would change attribution. Ratios of
+rounded burden and removal do not exactly equal the separate lifetime
+column, so we use one internally consistent pair of inputs. Other removal
+combines chemical and soil sinks. The data-availability DOI identifies GOSAT
+retrievals, not a posterior flux archive. Tables~1--2 and S1 are transcribed
+without attempting an inversion.
 \end{document}

@@ -1,0 +1,47 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\begin{document}
+\begin{center}\large Adjusting published removal anomalies\end{center}
+Let $Q_j>0$ denote annual methane removal by OH, $m_j$ the atmospheric
+burden, and $k_j=Q_j/m_j$ the effective loss frequency. The reference year is
+2019, denoted by subscript 0. He's OH forcing is
+\begin{equation}
+F_{{\rm OH},j}=-m_0(k_j-k_0)=Q_0-Q_jm_0/m_j.
+\end{equation}
+Qu (2022), Table 1, supplies both $Q$ and $m$. We use their ratio consistently,
+rather than mixing it with the separately reported lifetime column. Its other
+removal combines chemical and soil sinks, which cannot be separated into
+He's two terms from the table.
+
+Ciais (2026), Figure S3, plots signed sink anomalies $S=-Q$ relative to 2010.
+Subtracting each curve's 2019 value gives
+\begin{equation}
+s_j=S_j-S_0=Q_0-Q_j.
+\end{equation}
+The 2010 reference cancels. Native $Q_0$ and annual burdens are not tabulated.
+For a conditional comparison we prescribe the NOAA surface-mean burden proxy
+and an OH-only lifetime $\tau_{{\rm OH},0}$:
+\begin{equation}
+Q_0=\frac{m_0}{\tau_{{\rm OH},0}},\qquad
+F_{{\rm OH},j}=\frac{m_0}{m_j}
+\left(s_j+\frac{m_j-m_0}{\tau_{{\rm OH},0}}\right).
+\end{equation}
+This sensitivity calculation does not recover Ciais's native forcing. We use
+11.1 yr as a benchmark and 9--12 yr as a sensitivity range; 11.1 yr is He's
+reported mean OH lifetime, not a known Ciais 2019 value. Coordinate-reading
+precision is separate from inversion spread. The annual circles are read
+at their published year labels.
+
+For a uniform fractional OH reduction $r$, with unchanged temperature and
+baseline weighting, the prescribed scenario gives
+\begin{equation}
+k_j=(1-r)k_0,\qquad F_{{\rm OH},j}=r\,m_0/\tau_{{\rm OH},0}.
+\end{equation}
+Laughner's 2--4\% range motivates $r$; it is a temporal sensitivity envelope,
+not a posterior confidence interval. The reduction is applied during 2020
+only. Returning the imposed forcing to zero in 2021--2022 does not remove
+the burden accumulated in 2020. This calculation does not reproduce
+Laughner's hemispheric trajectories or their 2021 extrapolations.
+All flux terms have units Tg CH$_4$ yr$^{-1}$ and burdens Tg CH$_4$.
+\end{document}

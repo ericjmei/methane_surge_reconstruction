@@ -1,0 +1,18 @@
+sector,model,domain,emissions_2019,mean_2020_2022_minus_2019,units,source
+Wetlands,ORCHIDEE ERA5,Global,177.9,2.0,Tg CH4 yr-1,Supplement Table S1
+Wetlands,ORCHIDEE MERRA2,Global,173.9,2.3,Tg CH4 yr-1,Supplement Table S1
+Wetlands,DLEM,Global,178.2,-2.2,Tg CH4 yr-1,Supplement Table S1
+Wetlands,LPJ ERA5,Global,175.7,3.5,Tg CH4 yr-1,Supplement Table S1
+Wetlands,LPJ MERRA2,Global,190.6,-2.0,Tg CH4 yr-1,Supplement Table S1
+Wetlands,UPCH4,Global,234.7,0.8,Tg CH4 yr-1,Supplement Table S1
+Inland waters,DLEM,Global,106.4,4.0,Tg CH4 yr-1,Supplement Table S1
+Rivers,Rocher-Ros,Global,28.5,0.2,Tg CH4 yr-1,Supplement Table S1
+Lakes and reservoirs,Johnson,Global,52.1,0.7,Tg CH4 yr-1,Supplement Table S1
+Fire,GFED4,Global,17.8,-5.0,Tg CH4 yr-1,Supplement Table S1
+Livestock,Chang update,Global,132.3,4.5,Tg CH4 yr-1,Supplement Table S1
+Rice,DLEM,Global,31.6,3.0,Tg CH4 yr-1,Supplement Table S1
+Rice,ML Ouyang,Asia,17.7,0.9,Tg CH4 yr-1,Supplement Table S1
+Rice,IBIS,Asia,23.4,-0.2,Tg CH4 yr-1,Supplement Table S1
+Fossil fuels,PRIMAP Hist v2.6,Global,93.8,-1.8,Tg CH4 yr-1,Supplement Table S1
+Fossil fuels,EDGAR GHG2024,Global,99.9,-2.5,Tg CH4 yr-1,Supplement Table S1
+Fossil fuels,Dou,Global,122.4,-0.1,Tg CH4 yr-1,Supplement Table S1

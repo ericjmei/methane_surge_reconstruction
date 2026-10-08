@@ -1,0 +1,10 @@
+case,emission_change,total_forcing,OH_removal_change,other_removal_change,mass_change,growth_change,OH_lifetime_change,OH_percent_change,source
+Base,31,36,-1.0,0.8,41,31,0.15,-1.2,Main Table 1 and text
+gamma_0.1,19,39,-16,0.82,43,34,0.56,-4.6,Supplement Table S1
+gamma_1,34,35,3.5,0.82,41,30,0.042,-0.2,Supplement Table S1
+anthropogenic_error_30percent,21,37,-13,0.82,42,33,0.45,-3.8,Supplement Table S1
+anthropogenic_error_60percent,34,36,2.5,0.82,41,31,0.065,-0.4,Supplement Table S1
+OH_error_5percent,31,36,-0.85,0.82,42,31,0.14,-1.2,Supplement Table S1
+OH_error_20percent,31,36,-1.0,0.82,42,31,0.15,-1.2,Supplement Table S1
+wetland_error_20percent,36,36,4.3,0.82,42,31,0.025,-0.1,Supplement Table S1
+wetland_error_60percent,30,36,-2.0,0.82,41,31,0.18,-1.4,Supplement Table S1
