@@ -1,0 +1,15 @@
+region,prior,emissions_2019,emissions_2020,base_anomaly,ensemble_mean_anomaly,ensemble_sd_anomaly
+South America,92,120,117,-2.7,-2.8,0.98
+Africa,81,80,95,15,14,1.6
+Oceania,26,32,35,3.2,2.7,1.7
+Europe,34,32,37,4.6,4.4,0.68
+Russia,32,39,38,-1.1,-1.1,0.39
+China,64,51,47,-3.9,-3.7,0.47
+India and Pakistan,38,47,50,3.5,3.5,0.53
+CONUS,34,44,42,-2.0,-1.8,0.29
+South and Southeast Asia,22,29,31,2.0,1.9,0.40
+Canada and Alaska,19,20,25,4.8,4.9,0.16
+Middle East,17,21,24,2.5,2.5,0.13
+Mexico and Central America,14,19,19,-0.49,-0.54,0.34
+Central Asia,11,16,18,2.5,2.3,0.35
+Rest of world,23,24,25,1.7,1.4,1.1

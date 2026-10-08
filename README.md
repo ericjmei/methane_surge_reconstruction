@@ -5,8 +5,10 @@ doi:10.1126/sciadv.adz9007) and compare methane reconstructions over 2019–2022
 All anomalies use 2019 as the baseline. Flux inversion is outside the scope.
 
 The [compiled report](report/report.pdf) and [LaTeX source](report/report.tex)
-are **provisional**. Two full papers and Laughner's supplementary materials
-remain missing. See [progress](docs/progress.md).
+cover all nine bibliography entries, including their supporting materials.
+The report distinguishes numerical reproduction, digitized curves, and
+conditional calculations. Some exact He figures require unavailable posterior
+output; see [progress](docs/progress.md) and the report's figure inventory.
 
 Implemented and checked:
 
@@ -16,10 +18,12 @@ Implemented and checked:
   curves, restricted to 2019–2022 and labeled as digitizations.
 - Cross-study emission/OH figures, a common-burden sensitivity calculation,
   methodology tables, and regional evidence from the accessible studies.
+- Native Qu (2022) OH adjustment, its nine-case sensitivity ensemble, and
+  regional table; digitized Ciais emission/removal changes and conditional OH
+  adjustments; Laughner's prescribed-OH scenario and full numerical workbooks.
 - Numerical reproduction of Peng's 6.884032 Tg calendar-year emission change
   from archived monthly fluxes, including an explicit leap-year audit.
-- Separate one-page PDF/LaTeX reading notes. Unavailable papers have clearly
-  labeled acquisition records rather than invented scientific summaries.
+- Nine separate one-page PDF/LaTeX scientific reading notes.
 
 Rebuild the figures and documents from the committed processed datasets:
 
@@ -39,6 +43,11 @@ All Python dependencies are pinned by `pixi.lock`. The first download command
 verifies checksums and uses the committed NOAA snapshot; it does not replace
 that snapshot with a newer online revision. No inversion or heavy computation
 is run. The figure notebook is committed with outputs.
+
+User-supplied literature is in the ignored `papers/` directory. Its manifest
+and the two Laughner workbook transcriptions can be regenerated with
+`pixi run python -m scripts.import_provided`. The normal build uses committed
+numerical transcriptions and does not require those PDFs or workbooks.
 
 Validation:
 

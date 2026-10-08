@@ -1,7 +1,9 @@
 [paths]
 raw = "data/raw"
+transcribed = "data"
 processed = "data/processed"
 papers = "literature/papers"
+provided_papers = "papers"
 figures = "figures"
 report = "report"
 notebook = "notebooks/reconstruction.ipynb"
@@ -9,3 +11,6 @@ notebook = "notebooks/reconstruction.ipynb"
 [analysis]
 baseline_year = 2019
 last_year = 2022
+oh_lifetime_benchmark = 11.1
+oh_lifetime_sensitivity = [9.0, 10.0, 11.1, 12.0]
+oh_reduction_scenarios = [0.02, 0.03, 0.04]

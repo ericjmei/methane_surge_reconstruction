@@ -26,6 +26,7 @@ def calibrated(y, pixels, values):
 def main():
     config = tomllib.loads(Path("config.toml").read_text())
     raw = Path(config["paths"]["raw"])
+    inputs = Path(config["paths"]["transcribed"])
     out = Path(config["paths"]["processed"])
     out.mkdir(parents=True, exist_ok=True)
     years = np.arange(
@@ -77,7 +78,7 @@ def main():
         noaa[name].attrs["units"] = "Tg CH4 yr-1"
     noaa.to_netcdf(out / "noaa.nc")
 
-    digit = json.loads(Path("data/he_digitization.json").read_text())
+    digit = json.loads((inputs / "he_digitization.json").read_text())
     he = xr.Dataset(coords={"year": digit["year"]})
     for name, spec in digit["figure2"]["series"].items():
         he[name] = (
@@ -123,7 +124,7 @@ def main():
     he.to_netcdf(out / "he_digitized.nc")
     he.to_dataframe().to_csv(out / "he_digitized.csv")
 
-    tab = pd.read_csv("data/published_annual.csv")
+    tab = pd.read_csv(inputs / "published_annual.csv")
     annual = (
         tab.drop(columns="source")
         .set_index(["study", "year"])
@@ -138,6 +139,9 @@ def main():
     annual["oh_forcing_common_burden"] = oh_forcing_from_removal(
         annual.oh_removal, noaa.mass
     )
+    annual["oh_forcing_native"] = oh_forcing_from_removal(
+        annual.oh_removal, annual.mass
+    )
     annual["oh_percent_vs_2019"] = 100 * (
         (1 + annual.oh_percent_vs_prior / 100)
         / (1 + annual.oh_percent_vs_prior.sel(year=2019) / 100)
@@ -145,10 +149,91 @@ def main():
     )
     annual.attrs.update(
         baseline_year=2019,
-        caveat="OH forcing uses NOAA surface-burden proxy; missing values remain NaN",
+        caveat="Native OH forcing available for Qu2022; common-burden values are conditional; missing values remain NaN",
     )
+    for name in annual.data_vars:
+        annual[name].attrs["units"] = (
+            "percent"
+            if "percent" in name
+            else "Tg CH4"
+            if name == "mass"
+            else "Tg CH4 yr-1"
+        )
     annual.to_netcdf(out / "published_annual.nc")
     annual.to_dataframe().to_csv(out / "published_annual.csv")
+
+    # Ciais provides signed removal changes, but no absolute 2019 OH removal.
+    digit_c = json.loads((inputs / "ciais_digitization.json").read_text())
+    ciais = xr.Dataset(coords={"year": digit_c["year"], "OH_field": ["OH1", "OH2"]})
+    spec = digit_c["figure2"]
+    emission = calibrated(spec["y"], spec["calibration_y"], spec["calibration_value"])
+    ciais["emission_forcing"] = ("year", np.r_[0, emission])
+    upper = calibrated(
+        spec["sd_upper_cap_y"], spec["calibration_y"], spec["calibration_value"]
+    )
+    lower = calibrated(
+        spec["sd_lower_cap_y"], spec["calibration_y"], spec["calibration_value"]
+    )
+    ciais["emission_ensemble_sd"] = ("year", np.r_[0, (upper - lower) / 2])
+    spec_s = digit_c["figure_s3"]
+    signed = xr.DataArray(
+        [
+            calibrated(
+                spec_s[field + "_y"],
+                spec_s["calibration_y"],
+                spec_s["calibration_value"],
+            )
+            for field in ciais.OH_field.values
+        ],
+        dims=["OH_field", "year"],
+        coords={"OH_field": ciais.OH_field, "year": ciais.year},
+    )
+    ciais["oh_sink_saving"] = anomaly(signed)
+    tau_oh = xr.DataArray(
+        config["analysis"]["oh_lifetime_sensitivity"],
+        dims="OH_lifetime",
+        coords={"OH_lifetime": config["analysis"]["oh_lifetime_sensitivity"]},
+    )
+    assumed_oh_removal = noaa.mass.sel(year=2019) / tau_oh - ciais.oh_sink_saving
+    ciais["oh_forcing_common_burden"] = oh_forcing_from_removal(
+        assumed_oh_removal, noaa.mass
+    )
+    ciais.attrs.update(
+        source=digit_c["source"],
+        method=digit_c["method"],
+        baseline_year=2019,
+        caveat="OH forcing uses NOAA burden and an assumed 2019 OH lifetime; not native posterior forcing",
+    )
+    for name in ciais.data_vars:
+        ciais[name].attrs["units"] = "Tg CH4 yr-1"
+    ciais.to_netcdf(out / "ciais.nc")
+    ciais.to_dataframe().to_csv(out / "ciais.csv")
+
+    reduction = xr.DataArray(
+        config["analysis"]["oh_reduction_scenarios"],
+        dims="OH_reduction",
+        coords={"OH_reduction": config["analysis"]["oh_reduction_scenarios"]},
+    )
+    pulse = xr.DataArray(
+        (years == 2020).astype(float), dims="year", coords={"year": years}
+    )
+    laughner = xr.Dataset(
+        {"oh_forcing_scenario": noaa.mass.sel(year=2019) * reduction / tau_oh * pulse}
+    )
+    laughner.attrs.update(
+        baseline_year=2019,
+        caveat="Uniform prescribed 2020 OH reduction; conditional comparison, not Laughner native output",
+    )
+    laughner.oh_forcing_scenario.attrs["units"] = "Tg CH4 yr-1"
+    laughner.to_netcdf(out / "laughner_scenario.nc")
+
+    ensemble = pd.read_csv(inputs / "qu2022_sensitivity.csv")
+    ensemble["oh_forcing_reported"] = ensemble.total_forcing - ensemble.emission_change
+    ensemble["emission_fraction"] = ensemble.emission_change / ensemble.total_forcing
+    ensemble.to_csv(out / "qu2022_sensitivity.csv", index=False)
+    pd.read_csv(inputs / "qu2022_regional.csv").to_csv(
+        out / "qu2022_regional.csv", index=False
+    )
 
     # Retain the publisher's exact source numbers, including differences from text.
     book = openpyxl.load_workbook(raw / "peng/figure4.xlsx", data_only=True)
@@ -258,6 +343,25 @@ def main():
         "burden_adjustment_10yr_Tg": noaa.burden_adjustment.sel(
             chemical_lifetime=10
         ).values.tolist(),
+        "qu2022_native_OH_forcing_Tg": float(
+            annual.oh_forcing_native.sel(study="Qu2022", year=2020)
+        ),
+        "qu2022_ensemble_emission_fraction_mean": float(
+            ensemble.emission_fraction.mean()
+        ),
+        "qu2022_ensemble_emission_fraction_population_sd": float(
+            ensemble.emission_fraction.std(ddof=0)
+        ),
+        "ciais_2020_digitization_minus_reported_emissions_Tg": float(
+            emission[0] - spec["reported_2020_mean"]
+        ),
+        "ciais_emission_forcing_Tg": ciais.emission_forcing.values.tolist(),
+        "ciais_signed_OH_sink_anomalies_Tg": ciais.oh_sink_saving.values.tolist(),
+        "laughner_2020_scenario_3percent_11p1yr_Tg": float(
+            laughner.oh_forcing_scenario.sel(
+                year=2020, OH_reduction=0.03, OH_lifetime=11.1
+            )
+        ),
     }
     (out / "audit.json").write_text(json.dumps(audit, indent=2) + "\n")
     report = Path(config["paths"]["report"])
@@ -271,10 +375,24 @@ def main():
         ("He emissions (digitized)", he.emission_forcing),
         ("He OH forcing (digitized)", he.oh_forcing),
         ("He relaxation anomaly (digitized)", he.relaxation_anomaly),
-        ("Qu emissions", annual.emission_forcing.sel(study="Qu2024")),
-        ("Qu OH removal saving", annual.oh_sink_saving.sel(study="Qu2024")),
+        ("Qu 2022 emissions", annual.emission_forcing.sel(study="Qu2022")),
         (
-            "Qu OH forcing, common burden",
+            "Qu 2022 OH forcing, native burden",
+            annual.oh_forcing_native.sel(study="Qu2022"),
+        ),
+        ("Ciais emissions (digitized)", ciais.emission_forcing),
+        (
+            "Ciais OH-1, conditional",
+            ciais.oh_forcing_common_burden.sel(OH_field="OH1", OH_lifetime=11.1),
+        ),
+        (
+            "Ciais OH-2, conditional",
+            ciais.oh_forcing_common_burden.sel(OH_field="OH2", OH_lifetime=11.1),
+        ),
+        ("Qu 2024 emissions", annual.emission_forcing.sel(study="Qu2024")),
+        ("Qu 2024 OH removal saving", annual.oh_sink_saving.sel(study="Qu2024")),
+        (
+            "Qu 2024 OH forcing, common burden",
             annual.oh_forcing_common_burden.sel(study="Qu2024"),
         ),
         (

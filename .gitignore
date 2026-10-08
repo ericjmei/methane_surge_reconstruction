@@ -3,6 +3,7 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 literature/papers/
+/papers/
 data/raw/*
 !data/raw/noaa/
 !data/raw/noaa/*.txt

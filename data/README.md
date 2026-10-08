@@ -15,7 +15,13 @@ metadata but are not inputs to this global-budget analysis.
 | Tracked input | Meaning and source |
 | --- | --- |
 | `he_digitization.json` | Manual pixel coordinates and linear axis calibrations for central values in He Figs. 1–2; public Europe PMC raster archive. Not original posterior arrays. Two-pixel coordinate allowance; no uncertainty-band extraction. |
-| `published_annual.csv` | Qu 2024 Table S1 and Feng 2023 Table 1. Absolute annual fluxes in Tg CH4/yr; removal is positive. Feng annual SDs are not assumed to be anomaly SDs. OH percentages in Feng are relative to its prior, not 2019. |
+| `published_annual.csv` | Qu 2022 Table 1, Qu 2024 Table S1, and Feng 2023 Table 1. Annual fluxes in Tg CH4/yr; removal is positive. Qu 2022 additionally supplies native burden in Tg. Feng annual SDs are not assumed to be anomaly SDs; its OH percentages are relative to the prior. |
+| `provided_sources.json` | Identified titles/roles, page counts, byte counts, and SHA256 checksums of eight supplied files. Original papers stay in ignored `papers/`. |
+| `ciais_digitization.json` | Central markers from Ciais Fig. 2A and Fig. S3. Poppler rendering sizes, PDF pages, crop, pixel coordinates, and axis calibration are explicit. Signed removal is read on the left axis and rebased from 2010 to 2019. Two-pixel reading allowance is separate from model uncertainty. |
+| `ciais_bottom_up.csv` | Complete 2019 and 2020–2022 anomaly columns of Supplement Table S1. Model domains are explicit; Asian rice estimates are not added to the global rice estimate. The original 2023 column is outside scope. |
+| `qu2022_sensitivity.csv` | Main base case plus all eight Table S1 cases. Differences are 2020 minus 2019. Fluxes in Tg/yr, burdens in Tg, lifetimes in yr. Rounded columns need not close exactly. |
+| `qu2022_regional.csv` | Entire main Table 2 regional totals and anomalies, in Tg CH4/yr. Published anomalies are retained rather than re-differencing rounded annual columns. |
+| `laughner_inventory.csv`, `laughner_ope.csv` | Full numerical transcriptions of both workbooks. Missing methane inventory years remain NaN. Ozone-production efficiency is not a methane removal flux. Original historical context is retained in the input inventory, but no plotted analysis extends beyond 2019–2022. |
 | `published_attribution.csv` | Reported Peng and Stevenson attribution numbers, preserving their different physical definitions and uncertainties. |
 | `lawrence_oh_diagnostics.csv` | Lawrence 2001 Tables 2–3. All OH means in 10^6 molecules/cm3; lifetimes in years. These are methodological illustrations, not 2019–2022 reconstructions. |
 | `raw/noaa/*.txt` | NOAA annual surface means and January-to-January growth, downloaded October 2026. File headers report September 2026 creation. These differ from He's November 2025 snapshot. |
@@ -27,7 +33,22 @@ metadata but are not inputs to this global-budget analysis.
   emission curve. Their maximum discrepancy is 0.35 Tg/yr.
 - `published_annual.nc/csv`: own-2019 emission and sink changes, native tabulated
   budget growth, correctly rebased Feng OH percentages, and the explicitly
-  conditional Qu OH forcing using the NOAA burden proxy.
+  conditional OH forcing using the NOAA burden proxy. `oh_forcing_native`
+  uses Qu 2022's native burden; it remains missing for other reconstructions.
+- `ciais.nc/csv`: own-2019 emission and signed OH-removal changes. Conditional
+  OH forcing assumes NOAA burden and a 2019 OH-only lifetime of 9, 10, 11.1,
+  or 12 years. 11.1 is a benchmark motivated by He, not a recovered Ciais
+  lifetime. Emission SDs are read from published caps; no OH posterior
+  uncertainty is reconstructed. The 2020 emission digitization differs from
+  the main-text 22 Tg/yr value by only 0.065 Tg/yr.
+- `laughner_scenario.nc`: uniform 2%, 3%, or 4% OH reduction in 2020, applied
+  to a fixed 2019 NOAA burden and the same OH-lifetime sensitivity. The imposed
+  forcing returns to zero after 2020; this does not imply zero accumulated
+  burden. No native Laughner trajectory or flux inversion is reproduced.
+- `qu2022_sensitivity.csv`, `qu2022_regional.csv`: the transcribed regional
+  anomalies plus reported total-minus-emissions OH forcing for each ensemble
+  case. This subtraction uses rounded numbers, distinct from the 4.663 Tg/yr
+  native-burden calculation from main Table 1.
 - `noaa.nc`: concentration/growth snapshots, 2.77 Tg/ppb conversion, and chemical
   lifetime sensitivity at 9–12 years. Chemical lifetime excludes soil uptake.
 - `peng_source_data.csv`: exact cached cells of publisher Fig4a spreadsheet.

@@ -1,34 +1,52 @@
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
-\usepackage{hyperref}
+\usepackage{amsmath,hyperref}
 \begin{document}
-\begin{center}\large Ciais et al. (2026): full-text acquisition pending\end{center}
-\noindent\textbf{[Unread].} This is an acquisition record, not a scientific summary.
-The complete article and supplementary materials have been requested from the user.
-
-\paragraph{Reference.} Ciais et al., \emph{Science},
+\begin{center}\large Prescribed chemistry in Ciais et al. (2026)\end{center}
+\noindent\textbf{Reference.} Ciais et al., \emph{Science} 391, eadx8262,
 \href{https://doi.org/10.1126/science.adx8262}{doi:10.1126/science.adx8262}.
-Full bibliographic metadata supplied by the user remain in
-\texttt{methane\_surge\_comparison.bib}.
+The full article and 46-page supplement (Figs.~S1--S18, Table~S1) were read.
+Numerical comparisons retain 2019--2022.
 
-\paragraph{Acquisition attempts.} Science article and supplementary endpoints
-returned HTTP 403. The HAL record \texttt{hal-05503114} provides bibliographic
-metadata but no downloadable full text at the checked document endpoint.
-Author and institutional discovery records were also checked. The supplied
-Zotero paths refer to a macOS filesystem that is absent on this host.
+\paragraph{Method.} Three GOSAT inversions prescribe two independently
+constructed OH fields. OH-1 combines observed precursor concentrations with
+grid-cell chemical-box sensitivities evaluated for 2005. OH-2 uses ERA5-driven
+LMDz--INCA chemistry with updated precursor emissions, including aviation;
+its magnitude is multiplied by 0.88 to match the earlier TRANSCOM reference.
+OH-1 assumes fixed NO$_x$ vertical profiles. PYVAR--LMDz optimizes weekly total
+fluxes at $1.9^\circ\times3.75^\circ$; WESTLAKE optimizes seasonal land fluxes
+at $4^\circ\times5^\circ$; GONGGA optimizes four source categories at
+$2^\circ\times2.5^\circ$ in 14-day windows, with an initial-state adjustment
+using the first seven days. Wetland priors have no interannual variation.
+Quoted spreads combine three models and two OH fields, without sampling
+all uncertainty in the prescribed chemistry.
 
-\paragraph{Required material.} Full text and all supplementary files are needed
-to establish the model design, observational constraints, source and sink
-definitions, temporal baseline, and availability of posterior data. None of
-these are reconstructed from the abstract or from another paper's discussion.
-The report therefore makes no quantitative attribution claim from this study.
+\paragraph{Findings.} Emissions increase by $22.0\pm3.5$ Tg CH$_4$ yr$^{-1}$
+in 2020 relative to 2019. Wetland and inland water emissions average
+$8.6\pm2.6$ Tg CH$_4$ yr$^{-1}$ above 2019 in 2020--2022. Africa and
+Southeast Asia dominate the increase; southern South American wetlands
+instead decrease by $1.4\pm0.8$ Tg CH$_4$ yr$^{-1}$.
+The headline 83\% OH contribution uses 2019--2023, outside our target interval.
+The supplement defines it as the mean of four fractions of adjacent-year
+growth changes explained by changes in OH removal. It is neither a fraction
+of cumulative growth nor a fixed-2019 forcing fraction. Separate reported
+OH--growth regression $R^2$ values are 0.5--0.7.
 
-\paragraph{Planned use once supplied.} Read and summarize the complete methods
-and results, obtain the associated public flux and sink data, and identify the
-2019--2022 subset. If the necessary burden and loss-rate variables are supplied,
-calculate the native steady-state adjustment with the existing Python functions.
-If only aggregate attribution numbers are supplied, retain their original
-definition and document which parts cannot be transformed without additional
-assumptions. Replace this acquisition record with the requested approximately
-one-page scientific summary after that work is complete.
+\paragraph{Sector interpretation.} In mixed grid cells, emission changes are
+reallocated when the agricultural share differs by more than 20\% from the
+corresponding bottom-up fraction. Thus wetland versus agricultural
+attribution is partly prescribed. Prior-proportional allocation would assign
+$46.8\pm14.8$\% of global changes to agriculture/waste and
+$34.7\pm4.6$\% to wetlands. A global isotope-box calculation favors GONGGA's
+source mixture, conditional on source signatures and fractionation assumptions.
+The supplement inconsistently describes GONGGA's treatment of other natural
+sources on pp.~4--5; those components are not independently reconstructed here.
+
+\paragraph{Data and comparison.} Table~S1 supplies bottom-up baseline levels
+and period-mean anomalies. Annual inversion emissions and OH-removal anomalies
+are available graphically. We digitize central values and separate reading
+precision from ensemble spread. Native annual burdens and absolute 2019 OH
+removal are not tabulated. Conversion to He's OH forcing therefore uses an
+explicit common-burden/lifetime scenario. The air-mass-weighted OH maps cannot
+replace reaction-weighted loss frequencies. No inversion is repeated.
 \end{document}

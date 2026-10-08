@@ -1,0 +1,71 @@
+[
+  {
+    "path": "papers/ciais2026.pdf",
+    "study": "ciaisetal2026",
+    "role": "article",
+    "source": "supplied locally by user; titles and contents verified",
+    "sha256": "01d543d2e991922a83f72f540f43f81d4181c7a1c0c1387933a8726032506be9",
+    "bytes": 3141868,
+    "pages": 10
+  },
+  {
+    "path": "papers/ciais2026_supp.pdf",
+    "study": "ciaisetal2026",
+    "role": "supplement",
+    "source": "supplied locally by user; titles and contents verified",
+    "sha256": "acc174d6960f3fd930ff50ca9e9b623422e1c213ef8b8ca42ff8851888ac6f8a",
+    "bytes": 7914927,
+    "pages": 46
+  },
+  {
+    "path": "papers/qu2022.pdf",
+    "study": "quetal2022",
+    "role": "article",
+    "source": "supplied locally by user; titles and contents verified",
+    "sha256": "a59a0ffe7f5efefbd6b97dca52a5fe0f1e711e75535ad72a59dc6a93da8f2f9f",
+    "bytes": 1097810,
+    "pages": 9
+  },
+  {
+    "path": "papers/qu2022_supp.pdf",
+    "study": "quetal2022",
+    "role": "supplement",
+    "source": "supplied locally by user; titles and contents verified",
+    "sha256": "681ba4916f99e035fb1b8117479ee21d3de321f35a84643940449ae3b4d7925c",
+    "bytes": 481612,
+    "pages": 3
+  },
+  {
+    "path": "papers/laughner2021_supp1.pdf",
+    "study": "laughneretal2021",
+    "role": "SI Appendix",
+    "source": "supplied locally by user; titles and contents verified",
+    "sha256": "bf6dc253b581b8095c6deacc009626665955d88e24f15cb44a3f7237a1300dba",
+    "bytes": 1837031,
+    "pages": 19
+  },
+  {
+    "path": "papers/laughner2021_supp2.docx",
+    "study": "laughneretal2021",
+    "role": "team list",
+    "source": "supplied locally by user; titles and contents verified",
+    "sha256": "4ad4228d985dd55da35b6640aa6f58f2a24866f01ff781fd8ce96f07e5cfc05b",
+    "bytes": 5423
+  },
+  {
+    "path": "papers/laughner2021_supp3.xlsx",
+    "study": "laughneretal2021",
+    "role": "Dataset S1 / Table S2",
+    "source": "supplied locally by user; titles and contents verified",
+    "sha256": "615d9c15fee89c832deea366f97f4adafe5d46d55d97884636cd5b21b52a177c",
+    "bytes": 9311
+  },
+  {
+    "path": "papers/laughner2021_supp4.xlsx",
+    "study": "laughneretal2021",
+    "role": "Dataset S2 / Table S4",
+    "source": "supplied locally by user; titles and contents verified",
+    "sha256": "31c94142645db42091b0f93496bc8db18548b07916d21f1d5d6ddeee983b75b4",
+    "bytes": 14304
+  }
+]

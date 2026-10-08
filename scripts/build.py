@@ -33,12 +33,19 @@ def latex(path, bibliography=False):
         )
         if result.returncode:
             raise RuntimeError(result.stdout)
-    for _ in range(2):
+    for _ in range(5):
         result = subprocess.run(
             command, cwd=path.parent, capture_output=True, text=True, check=False
         )
         if result.returncode:
             raise RuntimeError(result.stdout[-5000:])
+        if not any(
+            warning in result.stdout
+            for warning in ["Rerun to get", "Rerun LaTeX", "Rerun with"]
+        ):
+            break
+    else:
+        raise RuntimeError(f"LaTeX cross-references did not converge for {path}")
     print(f"Compiled {path.with_suffix('.pdf')}", flush=True)
 
 
