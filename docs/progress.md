@@ -52,16 +52,19 @@ Scientific parameter choices and deviations will be justified in LaTeX.
 3. Laughner et al. (2021): SI Appendix and Datasets S1–S2. PNAS returns 403;
    the PMC assets archive contains only main figures. The indexed Caltech
    copy returns 404 after its certificate-chain issue is accounted for.
-4. A usable GitHub login and SSH agent. The existing forwarded socket is absent;
-   the installed `gh` reports no authenticated account. A scoped worklog deploy
-   key was not repurposed for this repository.
 
 The missing literature has not been substituted with abstracts or later-paper
 summaries. Each missing entry has an explicit acquisition record. Once supplied,
 read it in full, acquire its relevant data, update the comparisons and report,
-and replace the corresponding incomplete note. Once authentication is usable,
-create the requested GitHub repository and push all tracked code/docs/PDFs.
-No extra permission is needed for the already authorized creation and upload.
+and replace the corresponding incomplete note.
+
+## GitHub delivery
+
+The private repository is
+[ericjmei/methane_surge_reconstruction](https://github.com/ericjmei/methane_surge_reconstruction).
+GitHub CLI and SSH authentication have both been verified as `ericjmei`.
+The `origin` remote uses SSH. The worklog repository's scoped deploy key was
+not repurposed. The remaining inputs are the literature listed above.
 
 ## Exact reproduction limits
 

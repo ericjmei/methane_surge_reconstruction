@@ -5,8 +5,8 @@ doi:10.1126/sciadv.adz9007) and compare methane reconstructions over 2019–2022
 All anomalies use 2019 as the baseline. Flux inversion is outside the scope.
 
 The [compiled report](report/report.pdf) and [LaTeX source](report/report.tex)
-are **provisional**. Two full papers, Laughner's supplementary materials, and
-GitHub authentication remain missing. See [progress](docs/progress.md).
+are **provisional**. Two full papers and Laughner's supplementary materials
+remain missing. See [progress](docs/progress.md).
 
 Implemented and checked:
 
