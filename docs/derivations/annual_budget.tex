@@ -1,0 +1,64 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,hyperref}
+\title{Separating methane growth from changes in its sources and sinks}
+\author{Methane surge reconstruction}
+\date{}
+\begin{document}
+\maketitle
+Following equation (1) of He et al. (2026,
+\href{https://doi.org/10.1126/sciadv.adz9007}{doi:10.1126/sciadv.adz9007}),
+the annual global methane budget is
+\begin{equation}
+ G_j=E_j-(k_{\mathrm{OH},j}+k_{\mathrm{other},j})m_j-L_j,
+\end{equation}
+in which $G_j$ is atmospheric mass growth, $E_j$ is gross emission,
+$L_j$ is positive soil uptake (all in Tg CH$_4$ yr$^{-1}$), $m_j$ is
+atmospheric methane mass (Tg CH$_4$), and the $k$ terms are chemical loss
+frequencies (yr$^{-1}$). The subscript 0 denotes 2019 and every $\Delta$
+denotes the value in year $j$ minus its 2019 value. Soil uptake must not
+also be included in $k_{\mathrm{other}}$.
+
+Writing $k_0=k_{\mathrm{OH},0}+k_{\mathrm{other},0}$ and expanding gives
+\begin{equation}
+ G_j=\underbrace{G_0-k_0\Delta m_j}_{R_j}
+     +\underbrace{\Delta E_j}_{F_{E,j}}
+     \underbrace{-m_0\Delta k_{\mathrm{OH},j}}_{F_{\mathrm{OH},j}}
+     +\epsilon_j,
+\end{equation}
+\begin{equation}
+ \epsilon_j=-m_0\Delta k_{\mathrm{other},j}
+ -(\Delta k_{\mathrm{OH},j}+\Delta k_{\mathrm{other},j})\Delta m_j
+ -\Delta L_j.
+\end{equation}
+He et al. neglect $\epsilon_j$. The implementation retains it as a
+diagnostic, separately from the three published attribution terms.
+$R_j$ is the residual growth under baseline rates evaluated at the
+actual burden. It is a growth contribution, and is therefore generally
+nonzero in 2019. Its anomaly is $-k_0\Delta m_j$. The forced growth
+anomaly is
+\begin{equation}
+ F_j=\Delta G_j+k_0\Delta m_j
+ \simeq F_{E,j}+F_{\mathrm{OH},j}.
+\end{equation}
+The positive adjustment $k_0\Delta m_j$ removes the extra loss caused
+by methane accumulation. A percentage change in an arbitrarily weighted
+OH mean is not sufficient to calculate $\Delta k_{\mathrm{OH}}$.
+The chemical lifetime must be methane-reaction weighted.
+
+For a published OH removal flux $Q_j=k_{\mathrm{OH},j}m_j$, the exact
+conversion to the baseline-burden OH forcing is
+\begin{equation}
+ F_{\mathrm{OH},j}
+ =\frac{-\Delta Q_j+k_{\mathrm{OH},0}\Delta m_j}
+ {1+\Delta m_j/m_0}.
+\end{equation}
+Thus, a change in removal flux must not be substituted directly for
+the change in loss frequency. This conversion requires the burden and
+baseline removal rate, and will not be made where those are unavailable.
+
+These equations apply to globally integrated budgets. Regional methane
+growth also includes transport, so no regional relaxation adjustment
+will be inferred from local emissions alone. Published regional emission
+anomalies can be compared separately. No inversion is performed.
+\end{document}

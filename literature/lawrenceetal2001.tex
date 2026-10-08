@@ -1,0 +1,54 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,hyperref}
+\begin{document}
+\begin{center}\large Defining the OH quantity in Lawrence et al. (2001)\end{center}
+\noindent\textbf{Reference.} Lawrence, J\"ockel, and von Kuhlmann,
+\emph{Atmospheric Chemistry and Physics} 1, 37--49,
+\href{https://doi.org/10.5194/acp-1-37-2001}{doi:10.5194/acp-1-37-2001}.
+
+\paragraph{Question and method.} A global mean OH concentration depends on both
+the averaging weights and the atmospheric domain. The authors compare four OH
+distributions: one empirical field and three MATCH chemistry-model fields.
+They calculate air-mass-weighted, volume-weighted, and reaction-weighted OH
+means, along with CH$_4$ and methyl-chloroform (MCF) lifetimes. For a species
+$X$, the relevant diagnostic is
+\begin{equation}
+\tau_X^{-1}=\frac{\sum_i k_X(T_i)[\mathrm{OH}]_i M_{X,i}}
+{\sum_i M_{X,i}},
+\end{equation}
+in which $M_{X,i}$ is species mass in a model cell and $k_X(T_i)$ is the
+temperature-dependent reaction rate. Thus a loss frequency is not generally
+proportional to an arbitrary global OH average. Temperature, species distribution,
+domain, and averaging convention must match.
+
+\paragraph{Findings.} Table 2 gives air-mass-weighted OH means of 1.14, 1.26,
+0.88, and 0.95, versus CH$_4$-reaction-weighted means of 1.32, 1.39, 1.06, and
+1.19, all in $10^6$ molecules cm$^{-3}$, for the four fields. Table 3 gives
+CH$_4$ lifetimes of 8.23, 7.79, 10.25, and 9.12 years. Weighting choices can
+change a reported global mean by about 30\%; differences in domain add another
+source of disagreement. More than 60\% of methane and MCF oxidation occurs
+in the tropical lower troposphere, while the contribution above 250 hPa is small.
+Consequently, a large OH anomaly where oxidation is weak need not strongly
+change methane lifetime.
+
+\paragraph{Recommended diagnostics.} The paper recommends reporting both
+mass-weighted and reaction-weighted means and a 12-region decomposition with
+latitude boundaries at $30^\circ$S, the equator, and $30^\circ$N and pressure
+boundaries at 750, 500, and 250 hPa. Regional diagnostics expose differences
+that a single global mean conceals. The paper also distinguishes a species'
+chemical lifetime from the response time of a perturbation when chemical
+feedbacks operate.
+
+\paragraph{Use in this reconstruction.} This is a methodological reference,
+not a reconstruction of 2019--2022 methane fluxes. Its tabulated OH means and
+lifetimes are retained as a numerical illustration of the weighting issue;
+no 2001 field is inserted into the surge budget. We use annual OH lifetimes or
+matched mass and removal fluxes when available. Reported area- or mass-weighted
+OH changes are retained as such, rather than converted silently into equivalent
+emissions. This decision matters especially when comparing He and Qu's
+hemispheric OH optimization with Feng's latitude-band optimization and Peng's
+three-dimensional chemistry. No separate supplementary file is linked by the
+journal article; the derivations, tables, and regional diagnostics are in the
+main paper.
+\end{document}

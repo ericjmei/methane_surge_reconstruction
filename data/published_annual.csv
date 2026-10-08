@@ -1,0 +1,11 @@
+study,year,emissions,oh_removal,other_removal,emission_sd,oh_percent_vs_prior,source
+Qu2024,2019,550,478,75,,,Supplement Table S1 rounded to integer Tg per year
+Qu2024,2020,587,467,75,,,Supplement Table S1 rounded to integer Tg per year
+Qu2024,2021,590,468,74,,,Supplement Table S1 rounded to integer Tg per year
+Qu2024,2022,569,453,79,,,Supplement Table S1 rounded to integer Tg per year
+Feng2023_joint,2019,585.3,,,13.1,0.91,Table 1; OH percentages relative to prior
+Feng2023_joint,2020,603.2,,,13.2,-0.52,Table 1; OH percentages relative to prior
+Feng2023_joint,2021,603.7,,,13.2,0.62,Table 1; OH percentages relative to prior
+Feng2023_fixed,2019,583.7,,,11.2,,Table 1
+Feng2023_fixed,2020,610.7,,,11.3,,Table 1
+Feng2023_fixed,2021,604.5,,,11.4,,Table 1

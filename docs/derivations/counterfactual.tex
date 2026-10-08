@@ -1,0 +1,37 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,hyperref}
+\title{A constant-source, constant-sink methane trajectory}
+\author{Methane surge reconstruction}
+\date{}
+\begin{document}
+\maketitle
+The dashed trajectories in He et al. (2026), Fig.~1, motivate a
+constant-parameter counterfactual. Holding gross emissions $E$, soil
+uptake $L$ (Tg CH$_4$ yr$^{-1}$), and chemical loss frequency $k$
+(yr$^{-1}$) fixed gives
+\begin{equation}
+ \frac{dm_c}{dt}=E-L-km_c,\qquad m_c(0)=m_0.
+\end{equation}
+For $k>0$, direct integration gives
+\begin{equation}
+ m_c(t)=m_0+\left(\frac{E-L}{k}-m_0\right)
+                  \left[1-\exp(-kt)\right].
+\end{equation}
+The limit $k=0$ is $m_c(t)=m_0+(E-L)t$. Time is measured in years
+from the specified initial burden. No feedback multiplier is introduced:
+holding OH fixed specifies the loss frequency explicitly.
+
+The difference $m_c(t)-m_0$ is a concentration-trajectory attribution.
+It differs from summing the relaxation term of He et al.'s equation (1),
+because that term uses the actual $m_j$, not the counterfactual $m_c$.
+Increased emissions also increase subsequent losses, and their effects
+on burden decay with chemical lifetime. In continuous time, with constant
+$k_0$ and imposed forcing $F(t)$, the perturbation is
+\begin{equation}
+ m(t)-m_c(t)=\int_0^t\exp[-k_0(t-s)]F(s)\,ds.
+\end{equation}
+We will report the published annual budget decomposition and the
+constant-parameter trajectory separately. Treating them as numerically
+identical would introduce an additional approximation.
+\end{document}

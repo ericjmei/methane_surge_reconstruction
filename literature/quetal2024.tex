@@ -1,0 +1,59 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.85in]{geometry}
+\usepackage{amsmath,hyperref}
+\title{Separating wetland emissions and OH with annual GOSAT inversions}
+\author{Reading note on Qu et al. (2024)}\date{}
+\begin{document}\maketitle
+\noindent\textit{Inverse modeling of 2010--2022 satellite observations
+shows that inundation of the wet tropics drove the 2020--2022 methane surge.}
+PNAS 121, e2402730121.
+\href{https://doi.org/10.1073/pnas.2402730121}{doi:10.1073/pnas.2402730121}.
+The main article and supplementary Figs.~S1--S5 and Table~S1 were obtained.
+
+\paragraph{Method.}
+Independent annual analytical inversions use GOSAT column methane and
+GEOS-Chem 12.5.0, driven by MERRA2 at $4^\circ\times5^\circ$.
+Each inversion has 1009 annual nonwetland grid-cell fluxes, 168 monthly
+wetland fluxes over 14 regions, and two annual hemispheric OH factors.
+Land and ocean-glint retrievals are retained between $60^\circ$S and
+$60^\circ$N. Every year uses the same prior emissions and a global
+initial-concentration scaling based on the first ten days of GOSAT
+observations. The plotted continuous model concentration trajectory
+does not apply those yearly resets. Priors use GFEIv2, EDGARv4.3.2,
+and nine selected WetCHARTs members. A ten-member ensemble varies
+prior uncertainty and regularization one parameter at a time.
+
+\paragraph{Findings.}
+Table~S1 reports emissions of 550, 587, 590, and 569 Tg yr$^{-1}$
+in 2019--2022: anomalies of 0, 37, 40, and 19 relative to 2019.
+OH removal is 478, 467, 468, and 453 Tg yr$^{-1}$; other removal
+is 75, 75, 74, and 79 Tg yr$^{-1}$. These yield model growth of
+$-3$, 45, 48, and 37 Tg yr$^{-1}$, respectively. In particular,
+the negative modeled 2019 growth cannot be silently replaced with
+NOAA's positive 2019 growth. These published numbers are rounded to
+integer Tg yr$^{-1}$. Mean OH lifetime over 2010--2022 is 10.9 years.
+The paper attributes 28\% of the surge to OH and emphasizes emission
+increases in Equatorial Asia and Africa (43\% and 30\% of the
+emission surge). Its earlier South American increase contributes little
+specifically to 2020--2022.
+
+\paragraph{Why the comparison is informative.}
+This inversion separately optimizes monthly regional wetlands, whereas
+He et al. optimizes annual grid-cell net flux and later partitions it
+using prior sector fractions. It also resets to a fixed prior each year
+instead of propagating the previous posterior. These differences alter
+both sector attribution and the 2019 reference state. Tropical
+water-storage correlations support an inundation interpretation but do
+not uniquely establish causation; GRACE measures relative storage,
+not inundated wetland area. The paper itself notes discrepancies with
+livestock inventories and uncertainty in precipitation responses.
+
+\paragraph{Data and adjustment decision.}
+Table~S1 supports an exact transcription of rounded global fluxes.
+Supplementary Fig.~S3 is area-weighted OH, which must not be substituted
+for methane-reaction-weighted loss frequency. The smaller OH removal
+fluxes must first be converted using matched methane burdens before
+applying He's $-m_0\Delta k_{\mathrm{OH}}$ term. Other sinks combine
+soil and chemical loss, so splitting them requires additional data.
+We retain those limitations instead of inventing missing components.
+\end{document}

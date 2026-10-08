@@ -1,0 +1,11 @@
+[paths]
+raw = "data/raw"
+processed = "data/processed"
+papers = "literature/papers"
+figures = "figures"
+report = "report"
+notebook = "notebooks/reconstruction.ipynb"
+
+[analysis]
+baseline_year = 2019
+last_year = 2022

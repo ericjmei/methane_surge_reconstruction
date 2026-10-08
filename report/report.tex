@@ -1,0 +1,426 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.85in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,graphicx,longtable,tabularx,natbib,hyperref}
+\newcommand{\toprule}{\hline}
+\newcommand{\midrule}{\hline}
+\newcommand{\bottomrule}{\hline}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\newcommand{\tg}{\mathrm{Tg\ CH_4\ yr^{-1}}}
+\title{Reconstructing the methane surge with a 2019 reference budget}
+\author{Reproducible research report}
+\date{7 October 2026 --- provisional; missing literature remains requested}
+\begin{document}
+\maketitle
+\begin{abstract}
+Methane growth reflects both changes in sources and sinks and continued
+adjustment toward an existing equilibrium. We implement the annual budget
+decomposition of He et al. in Python and examine the publicly accessible
+2019--2022 results without performing a flux inversion. Digitized central
+curves reconstruct their first two figures over the requested period;
+published tables and archived fluxes support additional comparisons. The
+2020 emission anomaly ranges from about 7 to 37 Tg CH$_4$ per year among the
+available reconstructions. Using NOAA annual surface methane as a common
+burden proxy, the additional removal caused by rising methane amounts to
+3.4, 7.8, and 12.3 Tg yr$^{-1}$ in 2020--2022 for a 10-year chemical lifetime.
+These corrections do not remove differences in the studies' 2019 reference
+states or OH diagnostics. The archived Peng fluxes reproduce the published
+2020 anomaly to within $10^{-6}$ Tg when integrated over calendar years;
+normalizing both years to 365 days changes that anomaly by 1.53 Tg.
+This report is incomplete pending Ciais (2026), Qu (2022), and the Laughner
+(2021) supplementary materials. Their missing results are not inferred.
+\end{abstract}
+
+\section{Scope and available evidence}
+The target is the steady-state adjustment of \citet{heetal2026a}, not a new
+estimate of methane fluxes from atmospheric observations. We use 2019 as the
+reference in every anomaly calculation and retain 2019--2022. Absolute
+baseline quantities appear only where needed to interpret the anomalies.
+The main article and supplement of He were read, as were the available full
+articles and supplementary material for \citet{pengetal2022,quetal2024,
+stevensonetal2022}, the appendices in \citet{fengetal2023}, and
+\citet{lawrenceetal2001}. Standalone reading notes are kept in
+\texttt{literature/}. The Laughner main article was read, but its SI Appendix
+and Datasets S1--S2 remain unavailable; its note is explicitly provisional.
+
+Two bibliography entries remain \textbf{[unread]}: Ciais et al. (2026),
+\href{https://doi.org/10.1126/science.adx8262}{Science, adx8262}, and Qu et al.
+(2022), \href{https://doi.org/10.1088/1748-9326/ac8754}{Environmental Research
+Letters, ac8754}. Publisher and archive retrieval attempts failed, and the
+user was asked for full papers and supplements. They are not included in
+the scientific comparison. No reading note or result table is treated as
+complete for these entries.
+
+\section{Budget decomposition and scientific decisions}
+Let $m_j$ denote annual representative atmospheric methane mass, $E_j$ gross
+emissions, $L_j$ positive soil uptake, and $k_j=k_{\rm OH,j}+k_{\rm other,j}$
+the chemical loss frequency. Mass is in Tg CH$_4$, fluxes in Tg CH$_4$
+yr$^{-1}$, and loss frequencies in yr$^{-1}$. The annualized global budget is
+\begin{equation}\label{eq:budget}
+G_j=E_j-k_jm_j-L_j.
+\end{equation}
+in which $G_j$ is the atmospheric growth rate. A subscript 0 denotes 2019
+and $\Delta x_j=x_j-x_0$ within each reconstruction. Expanding gives
+\begin{equation}\label{eq:he}
+G_j=\underbrace{G_0-k_0\Delta m_j}_{R_j}
+ +\underbrace{\Delta E_j}_{F_{E,j}}
+ \underbrace{-m_0\Delta k_{\rm OH,j}}_{F_{{\rm OH},j}}
+ +\epsilon_j,
+\end{equation}
+\begin{equation}\label{eq:residual}
+\epsilon_j=-m_0\Delta k_{\rm other,j}
+ -\Delta k_j\Delta m_j-\Delta L_j.
+\end{equation}
+He neglects $\epsilon_j$. The code returns both this approximation and the
+exact residual, allowing its validity to be checked when all inputs are
+available. Soil uptake is not included a second time in $k_0$.
+An increasing burden makes the relaxation contribution $R_j$ smaller even
+when emissions and chemical loss frequencies are unchanged. In anomaly form,
+\begin{equation}\label{eq:adjust}
+\Delta G_j+k_0\Delta m_j\simeq F_{E,j}+F_{{\rm OH},j}.
+\end{equation}
+The adjustment has a positive sign on the left: growing methane increases
+removal under the reference loss frequency. A growth-rate anomaly by itself
+understates the forcing needed to sustain that growth.
+
+\paragraph{Counterfactual definition.}
+For constant $E_0,L_0,k_0$ and initial burden $m_c(0)=m_0$, the separately
+integrated counterfactual is
+\begin{equation}\label{eq:counter}
+m_c(t)=m_0+(E_0-L_0-k_0m_0)\frac{1-e^{-k_0t}}{k_0}.
+\end{equation}
+This is an exact constant-parameter box-model solution. It evaluates losses
+on $m_c(t)$; Eq.~\ref{eq:he} evaluates reference losses on the actual burden
+$m_j$. These are distinct diagnostics when the actual and counterfactual
+trajectories diverge. We implement both and do not equate their integrals.
+The dashed curves in the reconstructed He figure are digitized published
+curves, because the native initial burden and all reference losses are not
+provided numerically in the acquired materials.
+
+\paragraph{OH definition.}
+If a study supplies positive OH removal $Q_j=k_{\rm OH,j}m_j$, the equivalent
+baseline-burden forcing is
+\begin{equation}\label{eq:oh}
+F_{{\rm OH},j}=Q_0-Q_j\frac{m_0}{m_j}.
+\end{equation}
+It is generally different from the raw removal saving $Q_0-Q_j$.
+An area- or mass-weighted mean OH change cannot simply replace
+$\Delta k_{\rm OH}$. \citet{lawrenceetal2001} show that averaging weights,
+temperature, and the atmospheric domain change the relationship between mean
+OH and oxidation. We therefore do not convert Feng's latitude-band OH
+diagnostic or Qu's area-weighted supplementary OH curve directly to a flux.
+Nor do we substitute a methane perturbation lifetime, which incorporates
+chemical feedback, for He's chemical lifetime.
+
+\paragraph{Common-burden sensitivity.}
+For Qu's tabulated OH removal, a native application of Eq.~\ref{eq:oh}
+requires unavailable matched annual model burdens. We additionally evaluate
+it with $m^*_j=2.77X_j$, in which $X_j$ is NOAA's global annual surface mean
+in ppb and 2.77 Tg ppb$^{-1}$ follows He. This assumption is explicit: a
+surface mean is a proxy for the whole-atmosphere burden. Its fractional
+growth, rather than its constant multiplicative conversion, controls
+Eq.~\ref{eq:oh}. The result is labeled ``common burden,'' not native Qu
+forcing. To evaluate Eq.~\ref{eq:adjust} for NOAA growth, we examine chemical
+lifetimes of 9, 10, 11, and 12 years. This sensitivity range brackets the
+roughly 11-year OH lifetimes reported by He and Qu while allowing additional
+chemical losses; it is not a fitted or independently inferred lifetime.
+Soil uptake and other chemical frequencies are held fixed in this diagnostic.
+
+\paragraph{Time and uncertainty.}
+NOAA reports annual mean concentrations and growth from January to January.
+These are different observables and are retained with their own labels.
+The downloaded NOAA files were created in September 2026 and are not the
+November 2025 snapshot cited by He. Annual mean burden approximates the
+burden relevant to an annual budget; no subannual covariance is reconstructed.
+The original NOAA annual-mean and growth files are archived with this project;
+their public endpoints are
+\href{https://gml.noaa.gov/webdata/ccgg/trends/ch4/ch4_annmean_gl.txt}{annual means}
+and \href{https://gml.noaa.gov/webdata/ccgg/trends/ch4/ch4_gr_gl.txt}{annual growth}.
+Missing years and missing sink components remain missing. We do not combine
+annual posterior standard deviations into anomaly errors without their
+cross-year covariance, and we do not invent common uncertainty intervals
+for studies with different ensembles and uncertainty definitions.
+
+\section{Reconstructing the He figures}
+Figure~\ref{fig:he1} reconstructs the 2019--2022 portion of He's Fig.~1 from
+the public raster and adds the current numerical NOAA record. The plotted
+quantity is concentration change, despite the growth-rate wording in the
+original title. Figure~\ref{fig:he2} reconstructs the central curves of all
+four panels in He's Fig.~2, expressing emissions, lifetime, sectors, and
+growth as anomalies from 2019. The original uncertainty envelopes are not
+reproduced. Panel B subtracts the 2019 relaxation term, so the relaxation
+anomaly is negative while the original absolute relaxation contribution
+remains positive.
+
+The file \path{data/he_digitization.json} records the selected pixels and
+axis calibrations. A two-pixel coordinate
+allowance corresponds to about 1.1 Tg yr$^{-1}$ for an individual total
+emission value and 0.5 Tg yr$^{-1}$ for an individual stacked-bar boundary.
+Differences between two selected points can have twice those worst-case
+bounds. These are digitization tolerances, not posterior uncertainty.
+The independently digitized emission changes in panels A and B agree to
+within 0.35 Tg yr$^{-1}$. This checks transcription consistency, not the
+validity of the inversion.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=.87\linewidth]{../figures/he_figure1.pdf}
+\caption{Reconstruction of He Fig.~1 for 2019--2022. Black, blue, and orange
+filled markers are digitized TROPOMI, posterior GEOS--Chem, and published NOAA
+concentration changes, respectively. Orange open squares use the September
+2026 NOAA numerical file. Gray dashed and dotted curves are the published
+fixed-2019 and fixed-2021 counterfactuals, respectively, digitized without
+refitting. All concentrations are expressed as percentages of their own
+2019 values. The fixed-2021 branch retains the same 2019 reference.}
+\label{fig:he1}\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\linewidth]{../figures/he_figure2.pdf}
+\caption{Reconstruction of He Fig.~2 central values, rebased to 2019.
+(A) Red emission changes and purple changes in lifetime against tropospheric
+OH. (B) Red emission forcing, pink OH forcing, and gray relaxation anomalies;
+the black curve is their sum. The original positive baseline relaxation is
+subtracted. (C) Anthropogenic and wetland emission changes. (D) Changes in
+the five displayed anthropogenic sectors. Curves are digitized; shaded
+posterior ranges are omitted. Sector attribution inherits He's prior sector
+fractions. The panels are not independent flux inversions.}
+\label{fig:he2}\end{figure}
+
+\section{Comparing emission and sink changes}
+Table~\ref{tab:annual} and Fig.~\ref{fig:flux} show the available annual
+global anomalies. The largest emission disagreement is in 2020: Qu's
+37 Tg yr$^{-1}$ exceeds digitized He by about 29 Tg yr$^{-1}$ and Feng's
+joint-OH estimate by 19.1 Tg yr$^{-1}$. The He--Qu difference narrows to
+about 9 Tg yr$^{-1}$ in 2021, then widens to about 16 Tg yr$^{-1}$ in 2022.
+These comparisons preserve each study's own 2019 emissions. They do not imply
+that the reconstructions share the same absolute emission baseline.
+
+\begin{table}[htbp]\centering\small
+\input{annual_table.tex}
+\caption{Annual anomalies relative to 2019 in Tg CH$_4$ yr$^{-1}$.
+He values are digitized central estimates; Qu values originate in rounded
+Table S1; Feng values originate in Table 1. Qu's common-burden OH forcing
+uses Eq.~\ref{eq:oh} and NOAA annual surface means. It is conditional, whereas
+the raw removal saving is a direct table difference. The last row is a
+sensitivity calculation, not another inversion. Dashes denote unavailable
+years. All anomalies are zero in 2019 by definition.}
+\label{tab:annual}\end{table}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\linewidth]{../figures/flux_comparison.pdf}
+\caption{Global emission and OH comparisons. (A) Emission anomalies from
+He (red), Qu (blue), Feng joint and fixed OH (green solid and dashed), and
+Peng (purple). Peng's published calendar-year net surface-flux difference
+is retained; the time-normalization distinction is quantified below.
+(B) He OH forcing (red), Qu raw OH removal saving (blue dashed), and Qu
+common-burden OH forcing (blue solid, a conditional calculation). The purple
+diamond and error bar are Peng's reported $7.5\pm0.8$ Tg yr$^{-1}$ OH
+attribution; its definition is not silently replaced by the Qu diagnostic.
+Lines end where each study's available period ends.}
+\label{fig:flux}\end{figure}
+
+\paragraph{The sink correction grows through 2022.}
+For Qu, raw OH removal savings of 11, 10, and 25 Tg yr$^{-1}$ become about
+14, 17, and 36 Tg yr$^{-1}$ under the common-burden calculation.
+This occurs because maintaining even the reduced removal flux at a larger
+burden requires a larger decline in loss frequency than the raw flux change
+suggests. At a 10-year chemical lifetime, the NOAA burden adjustment is
+3.36, 7.81, and 12.29 Tg yr$^{-1}$. Varying the lifetime from 9 to 12 years
+changes the 2022 correction from 13.65 to 10.24 Tg yr$^{-1}$. The correction
+therefore matters increasingly after the initial surge, but it does not
+uniquely identify emissions versus OH.
+
+\paragraph{The baseline is a separate discrepancy.}
+Qu's Table S1 reports 2019 emissions of 550 Tg yr$^{-1}$ and total removal
+of 553 Tg yr$^{-1}$, implying growth of $-3$ Tg yr$^{-1}$. The corresponding
+NOAA growth in the current file is $+26.70$ Tg yr$^{-1}$; digitized He is
+about $+27.7$ Tg yr$^{-1}$. Qu's 2020 native growth of 45 Tg yr$^{-1}$ thus
+represents a 48 Tg yr$^{-1}$ anomaly, even though its absolute 2020 growth
+is near NOAA's 40.94 Tg yr$^{-1}$. Replacing Qu's baseline with NOAA would
+change the question and obscure this initialization issue. Qu adjusts its
+initial concentration each year, while its continuous diagnostic run does
+not impose those resets. He propagates the posterior state with a Kalman
+approach. These documented choices are plausible contributors to the
+baseline difference; the available global tables cannot isolate their
+individual effects.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\linewidth]{../figures/adjustment_and_baseline.pdf}
+\caption{Adjustment sensitivity and native growth anomalies. (A) Blue
+curves add $\Delta m/\tau_0$ to the current NOAA growth anomaly for chemical
+lifetimes of 9--12 years; black dashed is unadjusted growth. (B) NOAA
+(orange), digitized He (red), and Qu's tabulated budget (blue), each relative
+to its own 2019 growth. Legend values state the absolute baseline growth in
+Tg yr$^{-1}$. Annual mean surface methane is a burden proxy in A; the curves
+are not calibrated to reproduce the posterior estimates in B.}
+\label{fig:adjust}\end{figure}
+
+\paragraph{Attribution fractions have different denominators.}
+He reports 81\% emissions and 19\% OH for the additional forcing during
+2020--2021; its 59/25/16\% relaxation/emissions/OH partition describes
+2019--2024 total growth and is outside this report's period. Peng's 47/53\%
+split concerns the 2020 growth-rate increase. Feng's 34\% OH contribution
+in 2020 is inferred from the reduction in required emissions when OH is
+optimized: the fixed-OH anomaly is 27.0 Tg yr$^{-1}$ and the joint-OH
+anomaly is 17.9 Tg yr$^{-1}$. The 9.1 Tg yr$^{-1}$ difference is a useful
+sensitivity result but is not itself a separately measured $-m_0\Delta k$.
+Stevenson's $2.86\pm1.13$ ppb yr$^{-1}$ is a one-year response to precursor
+changes, equivalent to $7.92\pm3.13$ Tg over a year using He's conversion.
+We do not average these fractions into a consensus attribution.
+
+\section{Why the reconstructions differ}
+\begin{table}[htbp]\small
+\begin{tabularx}{\linewidth}{lYYY}
+\toprule Study & Observations and transport & Optimized or prescribed OH & Source and reference treatment\\
+\midrule
+He 2026 & TROPOMI; GEOS--Chem, $2^\circ\!\times2.5^\circ$; GEOS-FP & Two annual hemispheric factors; joint inversion & 4111 annual land fluxes; preceding posterior as prior; sectors from prior fractions\\
+Qu 2024 & GOSAT including ocean glint; GEOS--Chem, $4^\circ\!\times5^\circ$; MERRA2 & Two annual hemispheric factors; joint inversion & Annual fixed prior; 1009 nonwetland grid fluxes and 168 monthly wetland terms; yearly initial-state scaling\\
+Feng 2023 & GOSAT CH$_4$/CO$_2$ ratios and surface constraints; GEOS--Chem, $2^\circ\!\times2.5^\circ$; MERRA2 & Fixed climatology or monthly factors in six latitude bands & Ensemble Kalman filter; 487 regions; four-month lag; regional fluxes\\
+Peng 2022 & 103 surface sites; LMDZ--SACS, $1.9^\circ\!\times3.75^\circ$; ERA5 & Prescribed LMDZ--INCA chemistry; independent halocarbon check & Eight-day gridded net flux; variational inversion; bottom-up source attribution\\
+Stevenson 2022 & HTAP chemistry response experiments, with 2020 precursor changes & Chemistry sensitivities and perturbation lifetimes & No methane flux inversion; 2001 sensitivities transferred to a 2020 pulse\\
+\bottomrule
+\end{tabularx}
+\caption{Methodological distinctions from the read papers and supplements.
+These choices explain why nominally similar global anomalies need not have
+the same spatial attribution, reference state, or sink meaning. The table
+does not rank studies or quantify the independent effect of each choice.}
+\label{tab:methods}\end{table}
+
+\paragraph{Tropical wetlands versus livestock.}
+Qu assigns 43\% of its emission surge to Equatorial Asia and 30\% to Africa;
+Feng's fixed-OH inversion gives a 2020 East African increase of
+$14\pm3$ Tg relative to 2019. He finds a strong 2021 increase but assigns
+much of its global source change to anthropogenic emissions, with wetlands
+approximately unchanged from 2019 to 2021. This attribution depends on the
+prior spatial overlap of livestock and wetlands: He optimizes their total
+grid-cell flux and divides it using prior sector fractions, while Qu
+optimizes monthly regional wetland fluxes separately. He's precipitation-driven
+wetland prior can miss inundation displaced downstream from rainfall. Its
+independent ammonia comparison does not support increased African livestock
+emissions. Thus a livestock label in the posterior is not a direct
+observation of a livestock increase.
+
+\paragraph{South America and the baseline interval.}
+Feng finds positive 2020 tropical South American emission changes and larger
+2021 tropical and temperate South American increases. Qu emphasizes that
+much of its South American increase preceded 2020, so it contributes less
+to the 2020--2022 surge relative to 2019. He reports 2019--2024 trends, a
+different endpoint interval that cannot be relabeled as 2019--2022. Without
+common regional posterior arrays, a difference map or a precise regional
+ranking across these reconstructions would imply information that is not
+available. The global 2020 emission and 2022 OH differences are quantified;
+regional explanations remain method-based comparisons.
+
+\paragraph{Chemistry and sampling.}
+Peng prescribes three-dimensional OH changes simulated from changes in
+precursor emissions and meteorology, while He, Qu, and Feng infer low-dimensional
+OH factors from methane observations. The inferred split depends on prior
+errors, transport, the spatial sampling of surface versus column observations,
+and which OH degrees of freedom are allowed. Stevenson shows why a NO$_x$
+reduction alone is insufficient: its positive 4.75 ppb yr$^{-1}$ contribution
+is partly offset by negative CO and NMVOC contributions totaling about
+1.90 ppb yr$^{-1}$. Applying a single OH percentage everywhere would conceal
+this spatial and chemical structure.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\linewidth]{../figures/regional_evidence.pdf}
+\caption{Regional evidence with distinct physical meanings. (A) Peng source
+spreadsheet: 2020 minus 2019 methane inversion flux (gray), ORCHIDEE wetlands
+(green), fire (orange), and anthropogenic sources (blue) in four latitude
+bands. The bottom-up categories need not sum to the inversion. (B) Stevenson
+Table S13a: global one-year methane burden responses to NO$_x$ (orange), CO
+(blue), and NMVOC (green) emission changes in each source region, converted
+with 2.77 Tg ppb$^{-1}$. Aviation is only the additional correction, avoiding
+double counting. Panel B is not a map of regional methane emission changes.}
+\label{fig:regional}\end{figure}
+
+\section{A numerical reproduction of the Peng flux anomaly}
+Peng's public monthly posterior is supplied in kg CH$_4$ m$^{-2}$ s$^{-1}$
+with grid-cell areas in
+\href{https://doi.org/10.6084/m9.figshare.21076171}{Figshare record 21076171}.
+We multiply by area and the number of seconds in each
+calendar month before summing. The reconstructed calendar-year totals are
+552.5443 Tg in 2019 and 559.4283 Tg in 2020, giving 6.88403165 Tg. The
+publisher spreadsheet gives 6.8840322 Tg, agreeing within $10^{-6}$ Tg.
+This is a reproduction from numerical output, independent of figure digitization.
+
+The same monthly data give mean rates of 552.5443 and 557.8998 Tg per 365-day
+year. Their difference is 5.35554 Tg yr$^{-1}$; the extra 2020 day accounts
+for 1.52849 Tg of the calendar-total difference. Both quantities are valid
+when named correctly, but their units and temporal operators differ. We
+retain the reported calendar total in the comparison and expose the alternative
+rate normalization. This difference is smaller than the He--Qu emission gap
+but comparable to some reported source changes. For the map in
+Fig.~\ref{fig:pengmap}, we compare day-weighted annual mean rates, thereby
+removing the purely calendar-length contribution.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\linewidth]{../figures/peng_flux_map.pdf}
+\caption{Peng archived posterior net surface-flux rate, 2020 minus 2019.
+Each annual field is weighted by days per month; colors show mg CH$_4$
+m$^{-2}$ d$^{-1}$ with saturation at $\pm10$. Coordinates and grid-cell
+areas come from the archived netCDF. Negative values are reductions relative
+to 2019. This is a map of net surface flux, including prescribed soil uptake,
+not a sector-resolved or regional OH attribution.}
+\label{fig:pengmap}\end{figure}
+
+\section{Reproducibility limits and outstanding work}
+\begin{longtable}{p{.17\linewidth}p{.76\linewidth}}
+\toprule He figure & Reproduction status and required missing information\\\midrule
+\endhead
+1 & Central 2019--2022 curves digitized; updated NOAA numerical comparison
+added. Native model mass, complete loss terms, and original NOAA snapshot
+are needed for an exact independent counterfactual reproduction.\\
+2A--D & Central time series digitized and rebased. Original ensemble members
+and annual posterior diagnostics are needed for numerical curves and uncertainty
+envelopes. No posterior inversion was performed.\\
+3A--B & Not reconstructed. The map/pie and regional trends use 2024 or
+2019--2024 endpoints and require gridded posterior sector data. They cannot
+be converted to the target interval from the published image alone.\\
+S1 & Fit maps and annual fit statistics require sampled prior/posterior
+concentrations and observation-error diagnostics.\\
+S2 & Averaging kernels and degrees of freedom require posterior covariance
+and sensitivity matrices.\\
+S3 & Sector trend maps require annual gridded sector fluxes; the published
+2019--2024 trends cannot determine 2019--2022 anomalies.\\
+S4 & The ammonia trend diagnostic covers 2019--2024 and requires the matched
+IASI retrieval processing and regional masks. It is not a methane flux series.\\
+S5 & The 2024 error-correlation matrix requires posterior covariance.\\
+S6 & Prior wetland/anthropogenic overlap requires the actual gridded prior
+files and masks used by the inversion; model code alone is insufficient.\\
+S7 & TROPOMI/Carbon-I information-content experiment requires the specified
+sensitivity and observation-error matrices; rebuilding it would require work
+beyond the requested steady-state analysis.\\
+S8 & The error-versus-observation-count diagnostic requires individual
+2024 residuals and sampling information.\\
+S9 & Comparison of regularization choices requires both posterior inversion
+outputs. Re-running those inversions is explicitly out of scope.\\
+\bottomrule
+\end{longtable}
+
+The public He availability statement points to model code and observational
+inputs, rather than a numerical posterior archive sufficient for the items
+above. Absence from those acquired materials is not proof that the authors
+cannot provide the outputs. Complete annual burden, chemical loss, soil,
+sector flux, and ensemble data would permit a native application of
+Eq.~\ref{eq:he} and much stronger cross-study comparisons. We have not
+substituted digitized diagnostic matrices or invented spatial flux fields.
+
+The Python analysis, pinned pixi environment, original starter instructions,
+download manifest with checksums, transcription tables, digitization
+coordinates, processed netCDF files, executed figure notebook, reading notes,
+and LaTeX sources are retained locally. Four reusable budget tests check
+algebraic closure, the constant-rate limit, analytical trajectories, and
+baseline handling. Native full budgets remain unavailable, so these tests
+validate the implementation rather than posterior numerical agreement.
+
+To finish the requested literature comparison, obtain and read the two
+missing papers and all three sets of missing supplementary materials, then
+incorporate their relevant data and replace the acquisition notes. GitHub
+publication also remains pending a usable authenticated login and SSH agent;
+the host's forwarded SSH socket was absent when checked. This provisional
+report is not presented as completion of those outstanding requirements.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+\end{document}

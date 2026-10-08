@@ -1,0 +1,18 @@
+{
+  "he_panel_a_vs_b_max_emission_difference_Tg": 0.34965034965043884,
+  "peng_day_weighted_365_day_anomaly_Tg": 5.355539049119443,
+  "peng_publisher_anomaly_Tg": 6.8840322,
+  "peng_calendar_year_anomaly_Tg": 6.884031648916334,
+  "noaa_growth_anomaly_Tg": [
+    0.0,
+    14.237799999999993,
+    22.326199999999993,
+    9.334899999999998
+  ],
+  "burden_adjustment_10yr_Tg": [
+    0.0,
+    3.360010000000057,
+    7.811400000000049,
+    12.287720000000082
+  ]
+}

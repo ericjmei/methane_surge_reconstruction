@@ -1,0 +1,60 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.85in]{geometry}
+\usepackage{amsmath,hyperref}
+\title{Attributing methane growth with the 2019 budget}
+\author{Reading note on He et al. (2026)}
+\date{}
+\begin{document}\maketitle
+\noindent\textit{Attributing 2019--2024 methane growth using TROPOMI satellite observations.}
+Science Advances 12, eadz9007.
+\href{https://doi.org/10.1126/sciadv.adz9007}{doi:10.1126/sciadv.adz9007}.
+The published article and supplementary Figs.~S1--S9 were obtained.
+
+\paragraph{Method.}
+The authors assimilate 610 million bias-corrected TROPOMI retrievals
+over 2019--2024 with GEOS-Chem 14.4.1 at $2^\circ\times2.5^\circ$
+resolution, driven by GEOS-FP meteorology. Each annual analytical
+inversion optimizes 4111 land surface fluxes and two hemispheric OH
+scaling factors. The preceding posterior becomes the next prior, but
+prior error variances are reset; 2019 is inverted twice as a burn-in.
+The base prior errors are 50\% for fluxes and 10\% for OH, with
+regularization 0.02. A 27-member ensemble varies these assumptions.
+The prior combines EDGARv7 and regional anthropogenic inventories,
+LPJ-MERRA2 wetlands, and MeMo soil uptake. Sector attribution uses
+the prior sector fractions within each grid cell, rather than independent
+sector-specific observation constraints.
+
+\paragraph{Budget and findings.}
+Their equation (1) approximates annual methane mass growth as
+\begin{equation}
+G_j=(G_0-k_0\Delta m_j)+\Delta E_j-m_0\Delta k_{\mathrm{OH},j},
+\end{equation}
+in which 0 denotes 2019, $m$ is mass, $E$ is gross emissions, and
+$k_0$ includes OH and other chemical loss. Soil uptake is a separate
+baseline loss contained in $G_0$. Changes in other chemical loss,
+soil uptake, and the product of burden and loss-frequency anomalies
+are neglected. Emissions rise from 571 Tg yr$^{-1}$ in 2019 to
+601 in 2021, then return to 571--575 in 2022--2024. For 2020--2021,
+81\% of the forcing beyond the baseline relaxation is assigned to
+emissions and 19\% to OH. The 59/25/16\% relaxation/emissions/OH
+partition applies to 2019--2024 and must not be relabeled as a
+2019--2022 result. Mean OH lifetime is 11.1 years; OH decreases
+about 2\% from 2019 to 2022. The largest 2019--2024 regional trends
+are East Africa, South America, and Europe.
+
+\paragraph{Interpretation and reproducibility.}
+The supplement documents fit errors, averaging kernels, sector overlap,
+error correlations, and sensitivity to regularization, but contains no
+annual numerical posterior table. The availability statement links model
+code and satellite inputs, not the numerical posterior products needed
+to redraw maps or diagnostic matrices. Those inputs do not remove the
+need for an inversion, which is excluded here. Figure digitization, if
+used, must be identified as approximate and kept distinct from original
+numerical data. The livestock/wetland attribution is particularly sensitive
+to prior spatial overlap and missing tropical observations. The authors
+note that precipitation-driven wetland maps can miss river inundation;
+their African ammonia comparison does not support rising livestock.
+Our decision is to implement their annual decomposition exactly, expose
+its neglected terms, and distinguish it from a fully integrated
+constant-2019 counterfactual, whose burden differs from the observed one.
+\end{document}

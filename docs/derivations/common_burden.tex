@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+\section*{A common-burden sensitivity calculation}
+Native reconstruction budgets require native burden and loss-frequency series.
+When only an annual OH removal flux $Q_j$ is supplied, introduce an explicitly
+conditional reference burden $m^*_j=cX_j$, in which $X_j$ is NOAA annual mean
+surface methane and $c=2.77$ Tg ppb$^{-1}$ is He's conversion factor. Define
+\begin{equation}
+F^*_{\rm OH,j}=-m^*_0\left(\frac{Q_j}{m^*_j}-\frac{Q_0}{m^*_0}\right)
+=Q_0-Q_j\frac{X_0}{X_j}.
+\end{equation}
+This is He's baseline-burden forcing evaluated with a common observational
+proxy. It is not a native model diagnostic: surface and whole-atmosphere
+abundances and their temporal evolution can differ. A constant multiplicative
+error in $c$ cancels; a time-varying representativeness error does not.
+For observed growth $G^*_j=c g_j$, the source-plus-OH forcing required under
+fixed soil and other chemical loss frequencies is
+\begin{equation}
+F^*_{\rm req,j}=c(g_j-g_0)+\frac{c(X_j-X_0)}{\tau_0}.
+\end{equation}
+We examine chemical lifetimes $\tau_0=9,10,11,12$ years as a sensitivity range,
+not as posterior estimates. It brackets the approximately 11-year OH lifetimes
+in He and Qu and allows for additional chemical removal. Soil uptake is excluded
+from $\tau_0$, following He. Annual mean burden is an approximation to the
+burden in an annual integrated budget. We therefore do not fit these scenarios
+to the observed growth or treat discrepancies as a new flux inversion.
+\end{document}

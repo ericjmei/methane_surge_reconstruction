@@ -1,0 +1,45 @@
+{
+  "source": "Europe PMC PMC13068062 supplementaryFiles; sciadv.adz9007-f1.jpg and sciadv.adz9007-f2.jpg",
+  "method": "Manual marker-center and stack-boundary digitization in the original raster; zero-based x,y pixels. No source uncertainty bands reconstructed.",
+  "coordinate_error_pixels": 2,
+  "year": [2019, 2020, 2021, 2022],
+  "figure1": {
+    "image_size": [733, 580],
+    "x": [104, 223, 342, 462],
+    "calibration_y": [522, 33],
+    "calibration_value": [0, 4],
+    "units": "percent relative to 2019",
+    "series_y": {
+      "tropomi": [522, 413, 316, 230],
+      "noaa_published": [522, 443, 338, 230],
+      "posterior": [522, 426, 318, 236],
+      "constant_2019": [522, 464, 412, 365]
+    },
+    "constant_2021_y": [318, 193],
+    "constant_2021_year": [2021, 2022]
+  },
+  "figure2": {
+    "image_size": [750, 702],
+    "x": [71, 123, 175, 227],
+    "series": {
+      "emissions": {"y": [122, 107, 67, 117], "calibration_y": [34, 320], "calibration_value": [620, 460], "units": "Tg CH4 yr-1"},
+      "oh_lifetime": {"y": [199, 193, 170, 161], "calibration_y": [34, 272.5], "calibration_value": [12, 10.5], "units": "yr"},
+      "anthropogenic": {"y": [472, 463, 452, 465], "calibration_y": [380, 602.5], "calibration_value": [500, 200], "units": "Tg CH4 yr-1"},
+      "wetland": {"y": [617, 621, 617, 624], "calibration_y": [380, 602.5], "calibration_value": [500, 200], "units": "Tg CH4 yr-1"},
+      "livestock": {"y": [438, 420, 401, 414], "calibration_y": [401, 649], "calibration_value": [140, 20], "units": "Tg CH4 yr-1"},
+      "waste": {"y": [515, 510, 500, 507], "calibration_y": [401, 649], "calibration_value": [140, 20], "units": "Tg CH4 yr-1"},
+      "oil_gas": {"y": [576, 566, 573, 579], "calibration_y": [401, 649], "calibration_value": [140, 20], "units": "Tg CH4 yr-1"},
+      "rice": {"y": [615, 626, 622, 625], "calibration_y": [401, 649], "calibration_value": [140, 20], "units": "Tg CH4 yr-1"},
+      "coal": {"y": [643, 644, 639, 645], "calibration_y": [401, 649], "calibration_value": [140, 20], "units": "Tg CH4 yr-1"}
+    },
+    "panel_b": {
+      "x": [483, 530, 578, 625],
+      "calibration_y": [320, 34],
+      "calibration_value": [0, 70],
+      "gray_top_y": [207, 219, 239, 256],
+      "pink_top_y": [207, 213, 207, 215],
+      "red_top_y": [207, 178, 81, 205],
+      "units": "Tg CH4 yr-1"
+    }
+  }
+}

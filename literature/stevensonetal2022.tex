@@ -1,0 +1,49 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,hyperref}
+\begin{document}
+\begin{center}\large Precursor-emission sensitivity in Stevenson et al. (2022)\end{center}
+\noindent\textbf{Reference.} Stevenson et al., \emph{Atmospheric Chemistry and
+Physics} 22, 14243--14252,
+\href{https://doi.org/10.5194/acp-22-14243-2022}{doi:10.5194/acp-22-14243-2022}.
+
+\paragraph{Method.} The study applies sensitivities from the first Task Force on
+Hemispheric Transport of Air Pollution experiment to lockdown-related changes
+in NO$_x$, CO, and non-methane volatile organic compound (NMVOC) emissions.
+The underlying model experiments perturb 2001 anthropogenic emissions by 20\%.
+Eleven models supply regional responses; four supply the global experiments
+needed to determine the rest-of-world contribution. Chemical lifetimes are
+converted to perturbation lifetimes using each model's methane feedback factor.
+The response after one year is obtained from the equilibrium methane response
+by multiplying by $1-\exp(-1/\tau_p)$, in which $\tau_p$ is the perturbation
+lifetime in years. This represents a one-year forcing, not an instantaneous
+change in the methane loss flux. Extra aviation NO$_x$ is added after accounting
+for the aviation contribution already present in the scaled experiments.
+
+\paragraph{Findings.} The four-model mean attributes $2.86\pm1.13$ ppb yr$^{-1}$
+of the 2020 methane growth-rate increase to precursor-emission reductions,
+or $54\pm21$\% of the observed 5.3 ppb yr$^{-1}$ anomaly. NO$_x$ reductions
+contribute $4.75\pm1.02$ ppb yr$^{-1}$, offset by CO ($-1.42\pm0.29$) and
+NMVOC ($-0.48\pm0.39$) reductions. The additional aviation correction is
+0.345 ppb yr$^{-1}$; the total aviation contribution, including what was already
+counted, is about 0.93 ppb yr$^{-1}$. Using all available regional models raises
+the combined central estimate to 3.16 ppb yr$^{-1}$.
+
+\paragraph{Supplement and uncertainty.} The supplementary workbook provides
+lifetimes, methane feedback factors, equilibrium responses, emissions, and
+one-year sensitivities. Table S13 reproduces the main attribution table, and its
+uncertainty combines species-wise model standard deviations in quadrature.
+These errors do not include uncertainty in the lockdown emission estimates or
+in transferring sensitivities from 2001 to 2020. Table S11 gives global surface
+NO$_x$, CO, and NMVOC changes of $-19.38$ Tg NO$_2$, $-73.38$ Tg CO, and
+$-15.65$ Tg C, respectively; aviation NO$_x$ decreases by 0.83 Tg NO$_2$.
+
+\paragraph{Use in this reconstruction.} We extract the workbook's cached numerical
+values and retain its species and regional separation. We convert ppb to Tg
+using He et al.'s 2.77 Tg ppb$^{-1}$ for a common comparison, explicitly retaining
+the distinction between a one-year burden response and $-m_{2019}\Delta k_{\rm OH}$.
+The study supplies neither an inferred methane-emission anomaly nor a complete
+2019--2022 budget. We therefore compare its chemistry contribution separately
+and leave those missing quantities unfilled. Its perturbation lifetime is not
+substituted for He's chemical lifetime.
+\end{document}

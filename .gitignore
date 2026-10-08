@@ -1,0 +1,14 @@
+.pixi/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+literature/papers/
+data/raw/*
+!data/raw/noaa/
+!data/raw/noaa/*.txt
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+.ipynb_checkpoints/

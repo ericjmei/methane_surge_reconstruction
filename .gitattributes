@@ -1,0 +1,4 @@
+# SCM syntax highlighting & preventing 3-way merges
+pixi.lock merge=binary linguist-language=YAML linguist-generated=true -diff
+# Preserve the downloaded NOAA snapshots byte-for-byte, including comment spaces.
+data/raw/noaa/*.txt -whitespace

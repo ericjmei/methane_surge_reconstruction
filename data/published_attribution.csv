@@ -1,0 +1,7 @@
+study,year,component,value,uncertainty,units,kind,source
+Peng2022,2020,emissions,6.9,2.1,Tg CH4 yr-1,reported attribution,main text and Figure 4
+Peng2022,2020,oh,7.5,0.8,Tg CH4 yr-1,reported attribution,main text and Figure 4
+Stevenson2022,2020,NOx,4.75,1.02,ppb yr-1,one-year growth response,Table 2 four-model mean
+Stevenson2022,2020,CO,-1.42,0.29,ppb yr-1,one-year growth response,Table 2 four-model mean
+Stevenson2022,2020,NMVOC,-0.48,0.39,ppb yr-1,one-year growth response,Table 2 four-model mean
+Stevenson2022,2020,total,2.86,1.13,ppb yr-1,one-year growth response,Table 2 four-model mean

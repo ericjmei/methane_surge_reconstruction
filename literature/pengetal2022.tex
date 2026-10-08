@@ -1,0 +1,49 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,hyperref}
+\begin{document}
+\begin{center}\large Wetlands and prescribed chemistry in Peng et al. (2022)\end{center}
+\noindent\textbf{Reference.} Peng et al., \emph{Nature} 612, 477--482,
+\href{https://doi.org/10.1038/s41586-022-05447-w}{doi:10.1038/s41586-022-05447-w}.
+
+\paragraph{Method.} The study combines updated bottom-up inventories, two wetland
+models, LMDZ--INCA chemistry, a halocarbon inversion, and a surface-methane
+inversion. The latter assimilates 103 stations with PYVAR--LMDZ--SACS at
+$1.9^\circ\times3.75^\circ$, optimizing eight-day surface fluxes and initial
+concentrations. Gridded prior flux errors are 70\%. OH is prescribed from
+LMDZ--INCA, rather than optimized jointly with methane emissions. The chemistry
+simulation uses ERA5 meteorology and CEDS emissions updated for 2020 using
+Carbon Monitor activity changes. The separate 12-box inversion of HFC-134a,
+HFC-32, and HCFC-141b provides an independent, prior-sensitive OH constraint.
+The wetland models ORCHIDEE--MICT and LPJ-wsl use four meteorological forcings;
+ORCHIDEE also varies its wetland-area calibration.
+
+\paragraph{Findings.} Relative to 2019, the published 2020 inversion emission
+anomaly is $6.9\pm2.1$ Tg CH$_4$ yr$^{-1}$, and the attributed OH sink reduction
+is $7.5\pm0.8$ Tg CH$_4$ yr$^{-1}$. These account for 47\% and 53\% of the
+reported growth-rate increase, respectively. Bottom-up anthropogenic emissions
+decrease by $1.2\pm0.1$ Tg yr$^{-1}$ and fire emissions by $6.5\pm0.1$ Tg
+yr$^{-1}$, while modeled wetland emissions increase by $6.0\pm2.3$ Tg yr$^{-1}$.
+The inversion places a $14.3$ Tg yr$^{-1}$ increase in the Northern Hemisphere
+and a $7.4$ Tg yr$^{-1}$ decrease in the Southern Hemisphere. Chemistry gives a
+$1.6\pm0.2$\% global OH decrease. The halocarbon estimate is 1.6--1.8\% with
+10\% prior OH uncertainty, but only 0.6\% with a 5\% prior.
+
+\paragraph{Supplement and interpretation.} Supplementary Tables 1--2 document
+the meteorological differences and inversion priors. The soil sink is held at
+its 2017 climatology in 2019--2020, so a change in net surface flux can be compared
+with a gross-emission change if that prescribed uptake is retained. Supplementary
+Figs. 12--18 describe observational coverage and independent validation, including
+residual northern column and vertical-gradient biases. The lake-temperature
+calculation gives a small negative central anomaly but a broad range and excludes
+area and productivity changes; it does not constrain all aquatic emissions.
+
+\paragraph{Use in this reconstruction.} We acquired the archived monthly inversion
+netCDF and publisher source spreadsheets, and retain their numerical precision
+separately from rounded text values. Only 2019--2020 is available. The published
+7.5 Tg sink contribution is retained as a reported attribution: a mean OH
+percentage alone does not establish the reaction-weighted loss frequency needed
+by He et al. We do not silently add a burden correction to this number or assign
+missing 2021--2022 values. A common-burden calculation is labeled as an additional
+assumption, rather than a reproduction of Peng's native budget.
+\end{document}

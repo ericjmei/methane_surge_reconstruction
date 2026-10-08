@@ -1,0 +1,58 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.85in]{geometry}
+\usepackage{amsmath,hyperref}
+\title{Comparing fixed-OH and joint methane--OH inversions}
+\author{Reading note on Feng et al. (2023)}\date{}
+\begin{document}\maketitle
+\noindent\textit{Methane emissions are predominantly responsible for
+record-breaking atmospheric methane growth rates in 2020 and 2021.}
+Atmospheric Chemistry and Physics 23, 4863--4880.
+\href{https://doi.org/10.5194/acp-23-4863-2023}{doi:10.5194/acp-23-4863-2023}.
+Appendices A--C are included in the published article; no separate
+supplement is listed.
+
+\paragraph{Method.}
+The ensemble Kalman filter jointly assimilates Leicester GOSAT v9
+CH$_4$:CO$_2$ column ratios and surface measurements of both gases.
+It therefore avoids assigning the proxy ratio to methane using prescribed
+CO$_2$ alone. GEOS-Chem uses MERRA2 meteorology at
+$2^\circ\times2.5^\circ$. Monthly emission factors cover 476 land
+and 11 ocean regions, with a four-month assimilation window.
+Prior methane flux uncertainty is 60\%, with 300-km spatial and one-month
+temporal error correlation. Alongside a fixed-OH control, a joint inversion
+for 2018--2021 optimizes six monthly zonal OH factors with 3\% prior
+uncertainty. Polar OH is not adjusted. Wetlands and rice follow WetCHARTs;
+other anthropogenic priors use EDGAR v4.3.2 for 2012.
+
+\paragraph{Findings.}
+Table~1 gives fixed-OH emissions of 583.7, 610.7, and 604.5 Tg yr$^{-1}$
+for 2019, 2020, and 2021, respectively. The joint inversion gives
+585.3, 603.2, and 603.7 Tg yr$^{-1}$, so its 2019-relative anomalies
+are 17.9 and 18.4 Tg yr$^{-1}$. Published OH changes relative to the
+prior are $+0.91$, $-0.52$, and $+0.62$\%; the text reports changes
+of $-1.43$ and $-0.29$ percentage points relative to 2019. The
+34\% attribution in 2020 is the reduction of the inferred emission
+anomaly from 27.0 to 17.9 Tg yr$^{-1}$ when OH is optimized. This
+is a comparison of two inversions, not a direct evaluation of
+$-m_0\Delta k_{\mathrm{OH}}$. Their posterior regional flux--OH
+error correlations are generally below 0.05 in magnitude.
+
+Eastern Africa contributes about 14 Tg yr$^{-1}$ in the fixed-OH
+2020 comparison. China and India decrease by about 6 and 2 Tg yr$^{-1}$.
+Tropical South America and temperate North America matter more in
+2021. Regional water-storage and emission anomalies correlate, but
+the association alone does not distinguish microbial sectors.
+
+\paragraph{Comparison decisions.}
+Appendix~B explicitly distinguishes growth calculated between calendar-year
+endpoints from differences between annual means: the latter shift the
+effective timing by roughly half a year. We retain this distinction and
+use each inversion's own 2019 emissions. Annual posterior errors of
+roughly 11--13 Tg yr$^{-1}$ must not be treated as uncertainty of
+year-to-year differences without the cross-year covariance. Table~1
+can be transcribed exactly; no gridded posterior download is linked.
+The 9.1 Tg yr$^{-1}$ fixed-versus-joint difference in 2020 is retained
+as a sensitivity diagnostic and is not labeled a measured OH forcing.
+TCCON validation and the sensitivity experiments support the inferred
+large-scale flux patterns, conditional on the assumed OH parameterization.
+\end{document}

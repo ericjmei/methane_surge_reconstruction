@@ -1,0 +1,37 @@
+{
+  "peng/figure4.xlsx": {
+    "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41586-022-05447-w/MediaObjects/41586_2022_5447_MOESM6_ESM.xlsx",
+    "sha256": "bbe0c7ee6a002d13f5a2ef08aea77f70a56bede489bb1ba38a87b4829b951d3a",
+    "bytes": 1656400
+  },
+  "papers/heetal2026a_assets.zip": {
+    "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13068062/supplementaryFiles",
+    "sha256": "a88f82bdff61f81ae50a59ab1eb891b94019a593609e12b770c329978a808310",
+    "bytes": 2991155
+  },
+  "papers/quetal2024_assets.zip": {
+    "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11459126/supplementaryFiles",
+    "sha256": "bb4e94ad7d7a5eb04b918086b340a5697bd0fccc83d31db61540e52bd1fb002c",
+    "bytes": 2034637
+  },
+  "papers/stevensonetal2022_supplement.zip": {
+    "url": "https://acp.copernicus.org/articles/22/14243/2022/acp-22-14243-2022-supplement.zip",
+    "sha256": "6e5a76cf781a95a7a081a135d2a7bda2d0661f65bfb7c0503c1d6a23aa0631b6",
+    "bytes": 469101
+  },
+  "peng/inversion.nc": {
+    "url": "https://ndownloader.figshare.com/files/37419586",
+    "sha256": "5973b567d560e065c1de55b1a895ca4d211655534e5195e9c54dbdf5b74cf7f3",
+    "bytes": 1830572
+  },
+  "noaa/ch4_annmean_gl.txt": {
+    "url": "https://gml.noaa.gov/webdata/ccgg/trends/ch4/ch4_annmean_gl.txt",
+    "sha256": "82d9c67d52ddd86196b6a278c62f337a88b0fb3a0682fa7e337102357bc91a0c",
+    "bytes": 3104
+  },
+  "noaa/ch4_gr_gl.txt": {
+    "url": "https://gml.noaa.gov/webdata/ccgg/trends/ch4/ch4_gr_gl.txt",
+    "sha256": "c3d9b5054406968a099a672191c8c3830c5fe103bdfe3992eee4c0a1f7ca4628",
+    "bytes": 3436
+  }
+}
